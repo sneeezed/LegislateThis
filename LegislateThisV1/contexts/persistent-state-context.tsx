@@ -98,11 +98,23 @@ export function PersistentStateProvider({ children }: { children: ReactNode }) {
     }
   }, [state.volume, state.isPlaying, state.activeCursorTool, state.currentCursor, isLoaded])
 
-  // Apply cursor style to body
+  // Apply cursor style to body with enhanced error handling
   useEffect(() => {
-    if (isLoaded) {
-      document.body.style.cursor = state.currentCursor
-      return () => {
+    if (isLoaded && typeof window !== "undefined") {
+      try {
+        // Apply the cursor style to the document body
+        document.body.style.cursor = state.currentCursor
+
+        // Also apply to html element for better coverage
+        document.documentElement.style.cursor = state.currentCursor
+
+        return () => {
+          document.body.style.cursor = "default"
+          document.documentElement.style.cursor = "default"
+        }
+      } catch (error) {
+        console.error("Error applying cursor style:", error)
+        // Fallback to default cursor
         document.body.style.cursor = "default"
       }
     }

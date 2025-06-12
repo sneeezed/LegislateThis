@@ -2,6 +2,7 @@
 
 import { Heart, Music, Moon, Sun, Palette, Volume2, VolumeX, Play, Pause, Info } from "lucide-react"
 import { Slider } from "@/components/ui/slider"
+import { CursorPreview } from "@/components/cursor-preview"
 import { useState, useEffect, useRef } from "react"
 import { useTheme } from "next-themes"
 import { useRouter, usePathname } from "next/navigation"
@@ -93,20 +94,50 @@ export function Navigation() {
   }
 
   const cursorTools = [
-    { emoji: "🔍", name: "magnify", cursor: "zoom-in" },
-    { emoji: "🔔", name: "bell", cursor: "pointer" },
-    { emoji: "✏️", name: "pencil", cursor: "text" },
-    { emoji: "📌", name: "pin", cursor: "crosshair" },
-    { emoji: "📎", name: "clip", cursor: "grab" },
-    { emoji: "💎", name: "diamond", cursor: "help" },
-    { emoji: "🍕", name: "pizza", cursor: "wait" },
-    { emoji: "🍎", name: "apple", cursor: "cell" },
-    { emoji: "💬", name: "chat", cursor: "text" },
-    { emoji: "🖱️", name: "mouse", cursor: "default" },
+    {
+      name: "America",
+      cursor: "url('/cursors/America.cur'), auto",
+    },
+    {
+      name: "chicken",
+      cursor: "url('/cursors/chicken.cur'), text",
+    },
+    {
+      name: "cheese",
+      cursor: "url('/cursors/cheese.cur'), grab",
+    },
+    {
+      name: "realmouse",
+      cursor: "url('/cursors/realmouse.cur'), help",
+    },
+    {
+      name: "bloons",
+      cursor: "url('/cursors/bloons.cur'), wait",
+    },
+    {
+      name: "turtle",
+      cursor: "url('/cursors/turtle.cur'), cell",
+    },
+    {
+      name: "pencil",
+      cursor: "url('/cursors/pencil.cur'), text",
+    },
+    {
+      name: "pizza",
+      cursor: "url('/cursors/pizza.cur'), crosshair",
+    },
+    {
+      name: "pin",
+      cursor: "url('/cursors/pin.cur'), pointer",
+    },
+    {
+      name: "mouse",
+      cursor: "url('/cursors/mouse.cur'), default",
+    },
   ]
 
   const handleCursorSelect = (tool: (typeof cursorTools)[0]) => {
-    setActiveCursorTool(tool.emoji)
+    setActiveCursorTool(tool.name)
     setCurrentCursor(tool.cursor)
   }
 
@@ -309,27 +340,15 @@ export function Navigation() {
                   </button>
                 </>
               ) : (
-                // Cursor Tools (default)
+                // Cursor Tools using .cur files directly
                 cursorTools.map((tool, index) => (
-                  <button
+                  <CursorPreview
                     key={index}
-                    className={`px-3 py-3 border-r border-black last:border-r-0 transition-all hover:bg-gray-100 dark:hover:bg-gray-800 blue:hover:bg-blue-100 relative ${
-                      activeCursorTool === tool.emoji
-                        ? "border-2 border-black bg-gray-100 dark:bg-gray-800 blue:bg-blue-100 shadow-inner"
-                        : ""
-                    }`}
+                    name={tool.name}
+                    cursorPath={tool.cursor}
+                    isActive={activeCursorTool === tool.name}
                     onClick={() => handleCursorSelect(tool)}
-                    title={`${tool.name} cursor`}
-                  >
-                    <span
-                      className={`text-lg ${activeCursorTool === tool.emoji ? "scale-110" : ""} transition-transform`}
-                    >
-                      {tool.emoji}
-                    </span>
-                    {activeCursorTool === tool.emoji && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-black rounded-full"></div>
-                    )}
-                  </button>
+                  />
                 ))
               )}
             </div>
@@ -353,7 +372,7 @@ export function Navigation() {
               onClick={toggleCursorTools}
               title="Cursor Tools"
             >
-              <span>🖱️</span>
+              <span>🐁</span>
             </button>
             <button
               className={`border-r border-black p-3 flex items-center justify-center transition-colors hover:bg-black hover:text-white ${
@@ -380,7 +399,18 @@ export function Navigation() {
         <div className="fixed bottom-4 left-4 z-50 hidden lg-custom:block bg-white dark:bg-gray-900 blue:bg-blue-50 border border-black px-3 py-2 shadow-lg">
           <div className="flex items-center gap-2 text-sm">
             <span>Current cursor:</span>
-            <span className="text-lg">{activeCursorTool}</span>
+            <div className="flex items-center gap-2">
+              <img
+                src={
+                  cursorTools
+                    .find((tool) => tool.name === activeCursorTool)
+                    ?.cursor.match(/url$$['"]?([^'"]+)['"]?$$/)?.[1] || "/cursors/mouse.cur"
+                }
+                alt={`${activeCursorTool} cursor`}
+                className="w-4 h-4 object-contain"
+              />
+              <span className="capitalize">{activeCursorTool}</span>
+            </div>
             <button
               onClick={resetCursor}
               className="ml-2 text-xs hover:bg-black hover:text-white px-2 py-1 border border-black"

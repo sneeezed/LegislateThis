@@ -68,9 +68,8 @@ export default function About() {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
                   <p className="text-muted-foreground mb-4">
-                    Legislate This exists to bridge the gap between complex legislation and everyday citizens. We
-                    believe that democracy works best when people are informed, engaged, and empowered to participate in
-                    the legislative process.
+                    Legislate This is here to bridge the gap between complex new U.S. legislation between normal people who just wanna know whats
+                    happening in DC. We believe that democracy works best when people are informed, engaged, and empowered to participate in the legislative process.
                   </p>
                   <p className="text-muted-foreground">
                     Through clear communication, accessible resources, and innovative tools, we make it easier for
@@ -82,7 +81,7 @@ export default function About() {
                   <h2 className="text-2xl font-bold mb-4">Our Values</h2>
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• Transparency in government</li>
-                    <li>• Accessible information for all</li>
+                    <li>• Accessible free information for all</li>
                     <li>• Civic engagement and participation</li>
                     <li>• Non-partisan approach to legislation</li>
                     <li>• Community-driven democracy</li>
@@ -97,13 +96,16 @@ export default function About() {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Our Story</h2>
                   <p className="text-muted-foreground mb-4">
-                    Founded in 2024, Legislate This emerged from a simple observation: too many people feel disconnected
-                    from the legislative process that directly affects their lives. We started as a small team of policy
-                    enthusiasts, designers, and technologists who wanted to change that.
+                    Founded in 2025, Legislate This was creating by two teenagers living in DC. 
+                    We started Legislate This because we were tired of how news is delivered online, cold, overwhelming, 
+                    and often buried in clutter or TikTok noise. We wanted to create something different. 
+                    
                   </p>
                   <p className="text-muted-foreground">
-                    Today, we serve thousands of users who rely on our platform to stay informed about legislation,
-                    understand complex policy issues, and take meaningful action in their communities.
+                  A place that feels clear, focused, and warm.
+                  Here, we break down legislation in simple terms no clickbait, no chaos. Just clean explanations, 
+                  with a few small touches (like custom cursors and themes).
+
                   </p>
                 </div>
 
@@ -140,7 +142,7 @@ export default function About() {
               {/* Left-aligned team section headers */}
               <div className="text-left mb-8">
                 <h2 className="text-3xl font-bold mb-4">The Team</h2>
-                <p className="text-muted-foreground italic">There are only two team members.</p>
+                <p className="text-muted-foreground italic">(There are only two team members.)</p>
               </div>
 
               {/* Team Grid */}

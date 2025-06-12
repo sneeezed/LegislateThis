@@ -146,6 +146,20 @@
   }
 }
 
+/* Custom cursor support */
+* {
+  cursor: inherit;
+}
+
+/* Ensure cursor applies to all interactive elements */
+button,
+a,
+input,
+textarea,
+select {
+  cursor: inherit;
+}
+
 /* News Ticker Animations - Responsive */
 @keyframes seamless-scroll-mobile {
   0% {

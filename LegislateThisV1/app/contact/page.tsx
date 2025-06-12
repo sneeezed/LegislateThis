@@ -78,18 +78,10 @@ export default function Contact() {
               <div className="mt-auto pt-24">
                 <p className="mb-4">Twitter, LinkedIn, Instagram</p>
                 <p className="mb-1 text-muted-foreground">Privacy Policy</p>
-                <p className="mb-1 text-muted-foreground">© Legislate This</p>
-                <p className="text-muted-foreground">Credits</p>
               </div>
             </div>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="border-t border-border p-4 flex justify-between">
-            <a href="#" className="text-muted-foreground">
-              View Legislate This Network
-            </a>
-          </div>
         </div>
       </main>
     </div>
