@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --radius: 0rem;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+
+  .blue {
+    --background: 220 100% 97%;
+    --foreground: 220 100% 10%;
+    --card: 220 100% 97%;
+    --card-foreground: 220 100% 10%;
+    --popover: 220 100% 97%;
+    --popover-foreground: 220 100% 10%;
+    --primary: 220 100% 50%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 220 30% 90%;
+    --secondary-foreground: 220 100% 10%;
+    --muted: 220 30% 90%;
+    --muted-foreground: 220 30% 40%;
+    --accent: 220 30% 90%;
+    --accent-foreground: 220 100% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 30% 80%;
+    --input: 220 30% 80%;
+    --ring: 220 100% 50%;
+  }
+
+  .autumn {
+    --background: 35 100% 96%;
+    --foreground: 25 30% 15%;
+    --card: 35 100% 96%;
+    --card-foreground: 25 30% 15%;
+    --popover: 35 100% 96%;
+    --popover-foreground: 25 30% 15%;
+    --primary: 20 90% 48%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 35 40% 88%;
+    --secondary-foreground: 25 30% 15%;
+    --muted: 35 40% 88%;
+    --muted-foreground: 25 20% 45%;
+    --accent: 35 40% 88%;
+    --accent-foreground: 25 30% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 35 30% 82%;
+    --input: 35 30% 82%;
+    --ring: 20 90% 48%;
+  }
+
+  .sage {
+    --background: 120 20% 95%;
+    --foreground: 120 15% 15%;
+    --card: 120 20% 95%;
+    --card-foreground: 120 15% 15%;
+    --popover: 120 20% 95%;
+    --popover-foreground: 120 15% 15%;
+    --primary: 120 25% 35%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 120 15% 87%;
+    --secondary-foreground: 120 15% 15%;
+    --muted: 120 15% 87%;
+    --muted-foreground: 120 10% 45%;
+    --accent: 120 15% 87%;
+    --accent-foreground: 120 15% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 120 15% 80%;
+    --input: 120 15% 80%;
+    --ring: 120 25% 35%;
+  }
+
+  .lavender {
+    --background: 270 30% 96%;
+    --foreground: 270 20% 15%;
+    --card: 270 30% 96%;
+    --card-foreground: 270 20% 15%;
+    --popover: 270 30% 96%;
+    --popover-foreground: 270 20% 15%;
+    --primary: 270 50% 45%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 270 20% 88%;
+    --secondary-foreground: 270 20% 15%;
+    --muted: 270 20% 88%;
+    --muted-foreground: 270 15% 45%;
+    --accent: 270 20% 88%;
+    --accent-foreground: 270 20% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 270 20% 82%;
+    --input: 270 20% 82%;
+    --ring: 270 50% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom cursor support */
+* {
+  cursor: inherit;
+}
+
+/* Ensure cursor applies to all interactive elements */
+button,
+a,
+input,
+textarea,
+select {
+  cursor: inherit;
+}
+
+/* News Ticker Animations - Responsive */
+@keyframes seamless-scroll-mobile {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes seamless-scroll-tablet {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes seamless-scroll-desktop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.news-ticker-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.news-ticker-text {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 0.9;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+/* Mobile ticker - up to 767px */
+@media (max-width: 767px) {
+  .news-ticker-container {
+    height: 3rem;
+    min-height: 3rem;
+  }
+
+  .news-ticker-text {
+    font-size: 2.5rem;
+    animation: seamless-scroll-mobile 80s linear infinite;
+  }
+}
+
+/* Tablet ticker - 768px to 1000px */
+@media (min-width: 768px) and (max-width: 1000px) {
+  .news-ticker-container {
+    height: 5rem;
+    min-height: 5rem;
+  }
+
+  .news-ticker-text {
+    font-size: 4rem;
+    animation: seamless-scroll-tablet 100s linear infinite;
+  }
+}
+
+/* Desktop ticker - 1001px to 1279px */
+@media (min-width: 1001px) and (max-width: 1279px) {
+  .news-ticker-container {
+    height: 7rem;
+    min-height: 7rem;
+  }
+
+  .news-ticker-text {
+    font-size: 6rem;
+    animation: seamless-scroll-desktop 120s linear infinite;
+  }
+}
+
+/* Large desktop ticker - 1280px and up */
+@media (min-width: 1280px) {
+  .news-ticker-container {
+    height: 10rem;
+    min-height: 10rem;
+  }
+
+  .news-ticker-text {
+    font-size: 8rem;
+    animation: seamless-scroll-desktop 120s linear infinite;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1536px) {
+  .news-ticker-container {
+    height: 12rem;
+    min-height: 12rem;
+  }
+
+  .news-ticker-text {
+    font-size: 10rem;
+  }
+}
+
+.news-ticker-text:hover {
+  animation-play-state: paused;
+}
+
+/* Team photo hover effects */
+.team-photo-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.team-photo-container img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.team-photo-container:hover .default-photo {
+  opacity: 0;
+}
+
+.team-photo-container:hover .hover-photo {
+  opacity: 1;
+}
+
+/* Theme-specific enhancements */
+.autumn {
+  /* Add subtle texture for autumn theme */
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.15) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.sage {
+  /* Add subtle organic feel for sage theme */
+  background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.1) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.lavender {
+  /* Add gentle gradient for lavender theme */
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    transparent 25%,
+    transparent 75%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 30px 30px;
+}
