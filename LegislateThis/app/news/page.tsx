@@ -18,7 +18,11 @@ export default function News() {
   const [events, setEvents] = useState<LegislativeEvent[]>([])
   const [articlesLoading, setArticlesLoading] = useState(true)
   const [eventsLoading, setEventsLoading] = useState(true)
+  const [featuredPage, setFeaturedPage] = useState(1)
+  const [recentPage, setRecentPage] = useState(1)
   const router = useRouter()
+
+  const ITEMS_PER_PAGE = 3
 
   // Generate ticker text based on screen size
   useEffect(() => {
@@ -65,21 +69,30 @@ export default function News() {
     loadEventsData()
   }, [])
 
-  // Featured articles sorted by publishedAt ascending (oldest first)
+  // All featured and recent
   const featuredArticles = articles
-    .filter((a) => a.featured)
-    .sort((a, b) => a.publishedAt.getTime() - b.publishedAt.getTime())
-
-  // Recent updates
+  .filter(a => a.featured)
+  .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
   const recentArticles = articles.filter((a) => !a.featured)
   const isLoading = articlesLoading || eventsLoading
+
+  // Pagination logic
+  const featuredTotalPages = Math.ceil(featuredArticles.length / ITEMS_PER_PAGE)
+  const recentTotalPages = Math.ceil(recentArticles.length / ITEMS_PER_PAGE)
+  const paginatedFeatured = featuredArticles.slice(
+    (featuredPage - 1) * ITEMS_PER_PAGE,
+    featuredPage * ITEMS_PER_PAGE
+  )
+  const paginatedRecent = recentArticles.slice(
+    (recentPage - 1) * ITEMS_PER_PAGE,
+    recentPage * ITEMS_PER_PAGE
+  )
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
-
       <main className="flex-grow pt-20 lg-custom:pt-20">
-        {/* Seamless Scrolling News Ticker */}
+        {/* News Ticker */}
         <div className="py-8 lg-custom:py-12 xl:py-16 px-4">
           {tickerText && (
             <div className="news-ticker-container">
@@ -94,12 +107,13 @@ export default function News() {
             <NewsPageSkeleton />
           ) : (
             <>
-              {/* Grid: Featured (2 cols) + Recent (1 col) */}
+              {/* Grid: Featured + Recent */}
               <div className="grid lg-custom:grid-cols-2 xl:grid-cols-3 gap-4 lg-custom:gap-6 p-4 lg-custom:p-6">
-                {/* Featured Stories (span 2 cols) */}
-                {featuredArticles.length > 0 && (
+                {/* Featured Stories */}
+                {paginatedFeatured.length > 0 && (
                   <div className="xl:col-span-2 space-y-6">
-                    {featuredArticles.map((article) => (
+                    <h3 className="text-xl font-bold">Featured Stories</h3>
+                    {paginatedFeatured.map((article) => (
                       <div
                         key={article.id}
                         className="border border-border p-6 hover:bg-muted transition-colors cursor-pointer"
@@ -121,13 +135,29 @@ export default function News() {
                         </div>
                       </div>
                     ))}
+                    {/* Featured Pagination */}
+                    {featuredTotalPages > 1 && (
+                      <div className="flex space-x-2 mt-4">
+                        {Array.from({ length: featuredTotalPages }, (_, i) => i + 1).map((num) => (
+                          <button
+                            key={num}
+                            className={`px-3 py-1 border rounded ${
+                              num === featuredPage ? 'bg-muted' : ''
+                            }`}
+                            onClick={() => setFeaturedPage(num)}
+                          >
+                            {num}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 
-                {/* Recent Updates (span 1 col) */}
+                {/* Recent Updates */}
                 <div className="space-y-6">
                   <h3 className="text-lg font-bold">Recent Updates</h3>
-                  {recentArticles.map((article) => (
+                  {paginatedRecent.map((article) => (
                     <div
                       key={article.id}
                       className="border border-border p-4 hover:bg-muted transition-colors cursor-pointer"
@@ -147,10 +177,26 @@ export default function News() {
                       </div>
                     </div>
                   ))}
+                  {/* Recent Pagination */}
+                  {recentTotalPages > 1 && (
+                    <div className="flex space-x-2 mt-4">
+                      {Array.from({ length: recentTotalPages }, (_, i) => i + 1).map((num) => (
+                        <button
+                          key={num}
+                          className={`px-3 py-1 border rounded ${
+                            num === recentPage ? 'bg-muted' : ''
+                          }`}
+                          onClick={() => setRecentPage(num)}
+                        >
+                          {num}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Legislative Calendar Section */}
+              {/* Legislative Calendar */}
               <div className="border-t border-border p-4 lg-custom:p-6">
                 <h3 className="text-lg font-bold mb-3 lg-custom:mb-4">
                   Upcoming Legislative Events
