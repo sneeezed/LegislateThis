@@ -11,7 +11,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Legislate This",
   description: "Making legislation accessible, understandable, and actionable for everyone.",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({

@@ -1,4 +1,6 @@
-// Mock news data structure
+import { collection, getDocs, query, orderBy } from "firebase/firestore"
+import { db } from "@/contexts/firebase"  // adjust path if needed
+
 export interface NewsArticle {
   id: string
   slug: string
@@ -17,88 +19,61 @@ export interface LegislativeEvent {
   type: string
 }
 
-// Mock function to simulate Firestore news fetching
+/**
+ * Fetch all articles for the news listing, ordered newest first.
+ */
 export async function fetchNewsArticles(): Promise<NewsArticle[]> {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 1500))
+  const q = query(
+    collection(db, "articles"),
+    orderBy("publishedAt", "desc")
+  )
+  const snap = await getDocs(q)
 
-  // Mock news articles data - in real app this would come from Firestore
-  const mockArticles: NewsArticle[] = [
-    {
-      id: "1",
-      slug: "infrastructure-bill-passes-committee",
-      title: "Infrastructure Bill Passes Committee Review",
-      summary:
-        "The comprehensive infrastructure investment bill has successfully passed through committee review and is now heading to the floor for debate. The bill includes provisions for road improvements, broadband expansion, and green energy initiatives.",
-      category: "Policy Update",
-      publishedAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-      featured: true,
-    },
-    {
-      id: "2",
-      slug: "healthcare-reform-debate-begins",
-      title: "Healthcare Reform Debate",
-      summary: "Senate begins discussions on proposed healthcare reforms.",
-      category: "Healthcare",
-      publishedAt: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
-    },
-    {
-      id: "3",
-      slug: "education-funding-bill",
-      title: "Education Funding Bill",
-      summary: "New education funding proposal aims to increase teacher salaries.",
-      category: "Education",
-      publishedAt: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
-    },
-    {
-      id: "4",
-      slug: "environmental-protection-act",
-      title: "Environmental Protection Act",
-      summary: "Stricter environmental regulations proposed for industrial sectors.",
-      category: "Environment",
-      publishedAt: new Date(Date.now() - 8 * 60 * 60 * 1000), // 8 hours ago
-    },
-  ]
-
-  return mockArticles
+  return snap.docs.map((doc) => {
+    const data = doc.data()
+    return {
+      id: doc.id,
+      slug: doc.id,
+      title: data.title,
+      summary: data.summary,
+      category: data.category,
+      publishedAt: data.publishedAt.toDate(),
+      featured: !!data.featured,
+    }
+  })
 }
 
-// Mock function to simulate legislative events fetching
+/**
+ * Fetch upcoming legislative events for the calendar.
+ * Assumes a separate `legislativeEvents` collection in Firestore.
+ */
 export async function fetchLegislativeEvents(): Promise<LegislativeEvent[]> {
-  // Simulate network delay
-  await new Promise((resolve) => setTimeout(resolve, 1200))
+  const q = query(
+    collection(db, "legislativeEvents"),
+    orderBy("date", "asc")
+  )
+  const snap = await getDocs(q)
 
-  const mockEvents: LegislativeEvent[] = [
-    {
-      id: "1",
-      title: "Senate Floor Debate",
-      description: "Infrastructure Investment Bill",
-      date: "Tomorrow",
-      type: "debate",
-    },
-    {
-      id: "2",
-      title: "Committee Hearing",
-      description: "Healthcare Reform Proposals",
-      date: "This Week",
-      type: "hearing",
-    },
-    {
-      id: "3",
-      title: "Public Forum",
-      description: "Education Policy Discussion",
-      date: "Next Week",
-      type: "forum",
-    },
-  ]
-
-  return mockEvents
+  return snap.docs.map((doc) => {
+    const data = doc.data()
+    return {
+      id: doc.id,
+      title: data.title,
+      description: data.description,
+      date: data.date,
+      type: data.type,
+    }
+  })
 }
 
-// Utility function to format relative time
+/**
+ * Keep your existing relative‐time util here
+ */
 export function formatRelativeTime(date: Date): string {
   const now = new Date()
-  const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
+  const diffInHours = Math.floor(
+    (now.getTime() - date.getTime()) / (1000 * 60 * 60)
+  )
 
   if (diffInHours < 1) {
     return "Just now"
