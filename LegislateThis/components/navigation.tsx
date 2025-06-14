@@ -1,6 +1,6 @@
 "use client"
 
-import { Heart, Music, Moon, Sun, Palette, Volume2, VolumeX, Play, Pause, Info } from "lucide-react"
+import { Search, Music, Moon, Sun, Palette, Volume2, VolumeX, Play, Pause, Info } from "lucide-react"
 import { Slider } from "@/components/ui/slider"
 import { CursorPreview } from "@/components/cursor-preview"
 import { useState, useEffect } from "react"
@@ -31,14 +31,15 @@ export function Navigation() {
     currentCursor,
     showMusicPlayer,
     activeRightButton,
-    heartClicked,
     setActiveCursorTool,
     setCurrentCursor,
     setShowMusicPlayer,
     setActiveRightButton,
-    setHeartClicked,
     resetCursor,
   } = usePersistentState()
+
+  const [showSearchBar, setShowSearchBar] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
 
   // mark as mounted on client
   useEffect(() => {
@@ -132,9 +133,22 @@ export function Navigation() {
     router.push(`/${page.toLowerCase()}`)
   }
 
-  const handleHeartClick = () => {
-    setHeartClicked(true)
-    setTimeout(() => setHeartClicked(false), 2000)
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value)
+  }
+
+  const handleSearchToggle = () => {
+    setShowSearchBar(!showSearchBar)
+    if (showSearchBar) {
+      setSearchQuery("")
+    }
+  }
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Escape") {
+      setShowSearchBar(false)
+      setSearchQuery("")
+    }
   }
 
   const toggleMusicPlayer = () => {
@@ -169,26 +183,68 @@ export function Navigation() {
     <>
       {/* Floating Header Navigation */}
       <header className="fixed top-4 left-4 right-4 z-50 flex justify-between lg-custom:justify-between items-center">
-        <nav className="flex mx-auto lg-custom:mx-0 bg-white dark:bg-gray-900 blue:bg-blue-50 border border-black shadow-lg">
-          <button
-            className={`border-r border-black p-3 flex items-center justify-center transition-all hover:bg-black hover:text-white ${
-              heartClicked ? "bg-gray-100 dark:bg-gray-800 blue:bg-blue-100" : ""
-            }`}
-            onClick={handleHeartClick}
-          >
-            <Heart className="h-4 w-4 transition-all" fill={heartClicked ? "currentColor" : "none"} />
-          </button>
-          {["News", "Information", "About", "Contact"].map((item) => (
+        {/* Left Navigation - Centered on Mobile/Tablet (up to 1000px) */}
+        <nav className="flex mx-auto lg-custom:mx-0 bg-white dark:bg-gray-900 blue:bg-blue-50 border border-black shadow-lg transition-all duration-300 ease-in-out">
+          {/* search toggle + animated input */}
+          <div className="flex items-center">
             <button
-              key={item}
-              className={`border-r border-black px-4 py-3 transition-colors hover:bg-black hover:text-white ${
-                activeNavItem === item.toLowerCase() ? "bg-black text-white" : ""
-              }`}
-              onClick={() => handleNavigation(item)}
+              className="border-r border-black py-4 px-3 flex items-center justify-center transition-colors hover:bg-black hover:text-white"
+              onClick={handleSearchToggle}
             >
-              {item}
+              <Search className="h-4 w-4" />
             </button>
-          ))}
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                showSearchBar ? "w-64 opacity-100" : "w-0 opacity-0"
+              }`}
+            >
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                onKeyDown={handleSearchKeyDown}
+                placeholder="Search legislation..."
+                className="w-full px-3 py-3 bg-transparent border-none outline-none text-sm placeholder:text-muted-foreground"
+                autoFocus={showSearchBar}
+              />
+            </div>
+          </div>
+
+          {/* “News” button stays always visible */}
+          <button
+            className={`border-r border-black px-4 py-3 transition-colors hover:bg-black hover:text-white ${
+              activeNavItem === "news" ? "bg-black text-white" : ""
+            }`}
+            onClick={() => handleNavigation("News")}
+          >
+            News
+          </button>
+
+          {/* wrap Info/About/Contact in an animating container */}
+          <div
+className={`
+  flex items-center 
+  overflow-hidden 
+  transform origin-left 
+  transition-all duration-300 ease-in-out
+  ${showSearchBar 
+    ? "w-0 opacity-0 scale-x-0 pointer-events-none" 
+    : "w-[18rem] opacity-100 scale-x-100"
+  }
+`}
+          >
+            {['Information', 'About', 'Contact'].map((item) => (
+              <button
+                key={item}
+                className={`border-r border-black px-4 py-3 transition-colors hover:bg-black hover:text-white ${
+                  activeNavItem === item.toLowerCase() ? "bg-black text-white" : ""
+                }`}
+                onClick={() => handleNavigation(item)}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
         </nav>
 
         <div className="hidden lg-custom:flex items-center gap-4">
