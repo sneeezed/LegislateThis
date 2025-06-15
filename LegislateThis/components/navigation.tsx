@@ -148,8 +148,14 @@ export function Navigation() {
     if (e.key === "Escape") {
       setShowSearchBar(false)
       setSearchQuery("")
+    } else if (e.key === "Enter" && searchQuery.trim()) {
+      // Redirect to search results page
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      setShowSearchBar(false)
+      setSearchQuery("")
     }
   }
+
 
   const toggleMusicPlayer = () => {
     const newShow = !showMusicPlayer
