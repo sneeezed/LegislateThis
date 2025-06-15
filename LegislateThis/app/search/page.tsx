@@ -5,73 +5,91 @@ import { SearchResultsSkeleton } from "@/components/search-results-skeleton"
 import { useSearchParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, ExternalLink, Calendar, Tag } from "lucide-react"
+import { ArrowLeft, Calendar, Tag } from "lucide-react"
 
 // Mock search result types
 interface SearchResult {
   id: string
+  slug: string
   title: string
   summary: string
+  category: string
   status?: string
-  date: string
+  publishedAt: Date
+  featured?: boolean
   tags: string[]
-  url?: string
 }
 
 // Mock search results data
 const mockSearchResults: SearchResult[] = [
   {
     id: "1",
+    slug: "infrastructure-investment-and-jobs-act",
     title: "Infrastructure Investment and Jobs Act",
     summary:
       "A comprehensive bill to invest in American infrastructure, create jobs, and strengthen the economy through improvements to roads, bridges, broadband, and clean energy systems.",
     status: "Passed",
-    date: "2024-01-15",
+    category: "Infrastructure",
+    publishedAt: new Date("2024-01-15"),
     tags: ["Infrastructure", "Jobs", "Economy", "Transportation"],
-    url: "/bills/infrastructure-investment-jobs-act",
+
   },
   {
     id: "2",
+    slug: "healthcare-reform-debate-begins",
     title: "Healthcare Reform Debate Continues in Senate",
     summary:
       "Senate committees are reviewing proposed healthcare reforms that could impact prescription drug pricing and insurance coverage for millions of Americans.",
     status: "Failed",
-    date: "2024-01-14",
-    tags: ["Healthcare", "Reform", "Senate", "Insurance"],
-    url: "/articles/healthcare-reform-debate-begins",
+    category: "Healthcare",
+    publishedAt: new Date("2024-01-14"),
+    tags: ["Infrastructure", "Jobs", "Economy", "Transportation"],
+
   },
   {
     id: "3",
+    slug: "clean-energy-transition-act",
     title: "Clean Energy Transition Act",
     summary:
       "Legislation aimed at accelerating the transition to renewable energy sources while supporting workers in traditional energy sectors.",
     status: "In Committee",
-    date: "2024-01-12",
-    tags: ["Clean Energy", "Environment", "Jobs", "Renewable"],
+    category: "Environment",
+    publishedAt: new Date("2024-01-12"),
+    tags: ["Infrastructure", "Jobs", "Economy", "Transportation"],
+
   },
   {
     id: "4",
+    slug: "senator-elizabeth-warren",
     title: "Senator Elizabeth Warren",
     summary:
       "Senior Senator from Massachusetts, serving on the Banking, Housing, and Urban Affairs Committee. Known for consumer protection advocacy.",
-    date: "Profile Updated: 2024-01-10",
-    tags: ["Banking", "Consumer Protection", "Massachusetts", "Senate"],
+    category: "Profile",
+    publishedAt: new Date("2024-01-10"),
+    tags: ["Infrastructure", "Jobs", "Economy", "Transportation"],
+
   },
   {
     id: "5",
+    slug: "house-committee-on-energy-and-commerce",
     title: "House Committee on Energy and Commerce",
     summary:
       "Congressional committee with jurisdiction over energy policy, environmental protection, consumer protection, and interstate commerce.",
-    date: "Last Meeting: 2024-01-08",
-    tags: ["Energy", "Commerce", "Environment", "Consumer Protection"],
+    category: "Committee",
+    publishedAt: new Date("2024-01-08"),
+    tags: ["Infrastructure", "Jobs", "Economy", "Transportation"],
+
   },
   {
     id: "6",
+    slug: "education-funding-bill-advances",
     title: "Education Funding Bill Advances",
     summary:
       "New education funding proposal aims to increase teacher salaries and improve school infrastructure across the nation.",
-    date: "2024-01-07",
-    tags: ["Education", "Funding", "Teachers", "Schools"],
+    category: "Education",
+    publishedAt: new Date("2024-01-07"),
+    tags: ["Infrastructure", "Jobs", "Economy", "Transportation"],
+
   },
 ]
 
@@ -95,13 +113,14 @@ export default function SearchResults() {
 
       // Filter results based on query (simple mock filtering)
       const filteredResults = query
-        ? mockSearchResults
-            .filter(
-              (result) =>
-                result.title.toLowerCase().includes(query.toLowerCase()) ||
-                result.summary.toLowerCase().includes(query.toLowerCase()) ||
-                result.tags.some((tag) => tag.toLowerCase().includes(query.toLowerCase())),
-            )
+        ? mockSearchResults.filter(
+            (result) =>
+              result.title.toLowerCase().includes(query.toLowerCase()) ||
+              result.summary.toLowerCase().includes(query.toLowerCase()) ||
+              result.category.toLowerCase().includes(query.toLowerCase()) ||
+              result.tags.some((tag) => tag.toLowerCase().includes(query.toLowerCase())),
+
+          )
         : mockSearchResults
 
       setResults(filteredResults)
@@ -131,9 +150,7 @@ export default function SearchResults() {
   }
 
   const handleResultClick = (result: SearchResult) => {
-    if (result.url) {
-      router.push(result.url)
-    }
+    router.push(`/articles/${result.slug}`)
   }
 
   return (
@@ -208,25 +225,26 @@ export default function SearchResults() {
                 {results.map((result) => (
                   <div
                     key={result.id}
-                    className={`border border-border p-6 hover:bg-muted transition-colors ${
-                      result.url ? "cursor-pointer" : ""
-                    }`}
+                    className="border border-border p-6 hover:bg-muted transition-colors cursor-pointer"
                     onClick={() => handleResultClick(result)}
                   >
                     {/* Result Header */}
                     <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3"><div>
+                      <div className="flex items-center gap-3">
+                        <div>
                           <div className="flex items-center gap-2 mb-1">
-                            <span className={`px-2 py-1 text-xs font-medium rounded-none ${getStatusColor(result.status || "")}`}>
-                              {result.status}
-                            </span>
+                            {result.status && (
+                              <span
+                                className={`px-2 py-1 text-xs font-medium rounded-none ${getStatusColor(
+                                  result.status
+                                )}`}
+                              >
+                                {result.status}
+                              </span>
+                            )}
                           </div>
                           <h3 className="text-xl font-bold hover:underline">{result.title}</h3>
                         </div>
-                      </div>
-
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        {result.url && <ExternalLink className="h-4 w-4" />}
                       </div>
                     </div>
 
@@ -234,14 +252,17 @@ export default function SearchResults() {
                     <p className="text-muted-foreground mb-4 leading-relaxed">{result.summary}</p>
 
                     {/* Result Meta */}
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <Calendar className="h-4 w-4" />
-                        <span>{new Date(result.date).toLocaleDateString()}</span>
+                        <span>{result.publishedAt.toLocaleDateString()}</span>
                       </div>
+                      <span>•</span>
 
                       <div className="flex items-center gap-2">
-                        <Tag className="h-4 w-4" />
+                        <span>{result.category}</span>
+                        <div className="flex items-center gap-2">
+                        <span>•</span>
                         <div className="flex flex-wrap gap-1">
                           {result.tags.slice(0, 3).map((tag) => (
                             <span
@@ -257,6 +278,7 @@ export default function SearchResults() {
                             </span>
                           )}
                         </div>
+                      </div>
                       </div>
                     </div>
                   </div>
