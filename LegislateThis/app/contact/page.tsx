@@ -49,7 +49,7 @@ export default function Contact() {
                   showSeconds={true}
                 />
                 <p className="text-muted-foreground">
-                  contact@legislatethis.com
+                contact.legislate.this@gmail.com
                 </p>
               </div>
 
@@ -85,7 +85,7 @@ export default function Contact() {
                   </div>
                 ) : (
                   <form
-                    action="https://formsubmit.co/Matias.sevak@gmail.com"
+                    action="https://formsubmit.co/contact.legislate.this@gmail.com"
                     method="POST"
                     className="space-y-4"
                   >

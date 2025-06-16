@@ -40,14 +40,14 @@ const faqs: FAQ[] = [
     id: "4",
     question: "How often is the legislative information updated?",
     answer:
-      "Our legislative database is updated in real-time as new information becomes available from official government sources. Bill statuses, voting records, and committee actions are typically reflected within hours of official updates.",
+      "We’re a small team still in the early stages of development, so our legislative information isn’t updated in real time. However, we aim to publish accurate summaries and updates on a weekly basis",
     category: "legislation",
   },
   {
     id: "5",
     question: "Do I need to create an account to use the site?",
     answer:
-      "No, you can browse most of our content without creating an account. However, creating a free account allows you to save bills, receive personalized updates, and access additional features like custom alerts and reading lists.",
+      "No, you can browse all of our content without creating an account. But let us know if you would like an accounts feature on this site to save articles and have more personalization.",
     category: "account",
   },
   {
