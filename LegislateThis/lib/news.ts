@@ -9,14 +9,9 @@ export interface NewsArticle {
   category: string
   publishedAt: Date
   featured?: boolean
-}
+  tags: string[]
+  status?: string;
 
-export interface LegislativeEvent {
-  id: string
-  title: string
-  description: string
-  date: string
-  type: string
 }
 
 /**
@@ -39,29 +34,9 @@ export async function fetchNewsArticles(): Promise<NewsArticle[]> {
       category: data.category,
       publishedAt: data.publishedAt.toDate(),
       featured: !!data.featured,
-    }
-  })
-}
+      tags: data.tags,
+      status: data.status
 
-/**
- * Fetch upcoming legislative events for the calendar.
- * Assumes a separate `legislativeEvents` collection in Firestore.
- */
-export async function fetchLegislativeEvents(): Promise<LegislativeEvent[]> {
-  const q = query(
-    collection(db, "legislativeEvents"),
-    orderBy("date", "asc")
-  )
-  const snap = await getDocs(q)
-
-  return snap.docs.map((doc) => {
-    const data = doc.data()
-    return {
-      id: doc.id,
-      title: data.title,
-      description: data.description,
-      date: data.date,
-      type: data.type,
     }
   })
 }

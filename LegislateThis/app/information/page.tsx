@@ -22,30 +22,68 @@ export default function Information() {
                 Understanding how bills become laws and the journey from proposal to implementation.
               </p>
               <ul className="space-y-2 text-sm">
-                <li>• Bill Introduction</li>
-                <li>• Committee Review</li>
-                <li>• Floor Debate</li>
-                <li>• Voting Process</li>
-                <li>• Presidential Action</li>
-              </ul>
+    <li>
+      <a 
+        href="https://www.congress.gov/legislative-process/introduction-and-referral-of-bills"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Bill Introduction
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.congress.gov/legislative-process/committee-consideration"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Committee Review
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.congress.gov/legislative-process/house-floor"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Floor Debate
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.congress.gov/legislative-process/resolving-differences"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Voting Process
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.congress.gov/legislative-process/presidential-action"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Presidential Action
+      </a>
+    </li>
+  </ul>
             </div>
 
             {/* Current Legislation */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold">Current Legislation</h2>
+              <h2 className="text-2xl font-bold">How We Get Our Information</h2>
               <p className="text-muted-foreground">
-                Stay informed about active bills and their potential impact on your community.
+              We do the research so you don’t have to. Every article we publish is based on real legislation, official government sources, and trusted news outlets.
               </p>
-              <div className="space-y-3">
-                <div className="border border-border p-3">
-                  <h3 className="font-semibold">Healthcare Reform Act</h3>
-                  <p className="text-xs text-muted-foreground">Status: Committee Review</p>
-                </div>
-                <div className="border border-border p-3">
-                  <h3 className="font-semibold">Infrastructure Investment Bill</h3>
-                  <p className="text-xs text-muted-foreground">Status: Floor Debate</p>
-                </div>
-              </div>
+              <p className="text-muted-foreground">
+              We usually use Congress.gov for bill texts and summaries, GovTrack.us for tracking progress, the Congressional Research Service (CRS) for nonpartisan reports, and the Congressional Budget Office (CBO) for cost and budget analysis. We also reference trusted journalism outlets to provide context and real-world impact. 
+            </p>
             </div>
 
             {/* Resources */}
@@ -55,12 +93,57 @@ export default function Information() {
                 Tools and guides to help you engage with the legislative process effectively.
               </p>
               <ul className="space-y-2 text-sm">
-                <li>• Contact Your Representatives</li>
-                <li>• Bill Tracking Tools</li>
-                <li>• Voting Guides</li>
-                <li>• Civic Engagement Tips</li>
-                <li>• Legislative Calendar</li>
-              </ul>
+    <li>
+      <a 
+        href="https://www.commoncause.org/find-your-representative/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Contact Your Representatives
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.govtrack.us"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Bill Tracking Tools
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.vote.org/voting-guides/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Voting Guides
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.usa.gov/how-to-vote"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Civic Engagement Tips
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.congress.gov/legislative-activity"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:underline cursor-pointer"
+      >
+        • Legislative Calendar
+      </a>
+    </li>
+  </ul>
             </div>
           </div>
 

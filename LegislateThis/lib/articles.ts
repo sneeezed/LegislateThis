@@ -9,6 +9,8 @@ export interface Article {
   body: string
   tags: string[]
   publishedAt: Date
+  status?: string;
+
 }
 
 /**
@@ -29,6 +31,8 @@ export async function fetchArticleBySlug(
     body: data.body,
     tags: data.tags || [],
     publishedAt: data.publishedAt.toDate(),
+    status: data.status
+
   }
 }
 

@@ -24,7 +24,7 @@ export async function searchArticles(query: string): Promise<SearchResult[]> {
     const data = doc.data() as any;
     return {
       id: doc.id,
-      slug: data.slug,
+      slug: doc.id,
       title: data.title,
       summary: data.summary,
       category: data.category,

@@ -176,7 +176,7 @@ export default function SearchResults() {
                         </span>
                       </div>
                       <span>•</span>
-                      <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2">
                         <span>{result.category}</span>
                         <div className="flex items-center gap-2">
                           <span>•</span>

@@ -1,3 +1,4 @@
+// app/articles/[slug]/page.tsx
 "use client"
 
 import { Navigation } from "@/components/navigation"
@@ -7,7 +8,7 @@ import { fetchArticleBySlug, formatPublishDate, type Article } from "@/lib/artic
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Share2, Bookmark } from "lucide-react"
+import { ArrowLeft, Share2 } from "lucide-react"
 import { collection, query, orderBy, getDocs } from "firebase/firestore"
 import { db } from "@/contexts/firebase"
 
@@ -24,10 +25,25 @@ export default function ArticlePage() {
   const router = useRouter()
   const slug = params.slug as string
 
-  const [article, setArticle] = useState<Article | null>(null)
+  // Allow status on Article type
+  const [article, setArticle] = useState<(Article & { status?: string }) | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([])
+
+  // Status badge color helper
+  const getStatusColor = (status?: string) => {
+    switch (status) {
+      case "In Committee":
+        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+      case "Passed":
+        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+      case "Failed":
+        return "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
+      default:
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200"
+    }
+  }
 
   // Load the main article
   useEffect(() => {
@@ -124,17 +140,25 @@ export default function ArticlePage() {
                 <span>{formatPublishDate(article.publishedAt)}</span>
                 <span>•</span>
                 <span>{Math.ceil(article.body.split(" ").length / 200)} min read</span>
+                <span>•</span>
+
               </div>
-              <div className="flex flex-wrap gap-2">
-                {article.tags.map(tag => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 text-xs border border-border bg-muted rounded-none"
-                  >
-                    {tag}
-                  </span>
-                ))}
+
+              {/* Tags + Status */}
+              <div className="flex items-center flex-wrap gap-2 text-sm text-muted-foreground">
+                {article.status && (
+                  <>
+                    <span
+                      className={`px-2 py-1 text-xs font-medium rounded-none ${getStatusColor(
+                        article.status
+                      )}`}
+                    >
+                      {article.status}
+                    </span>
+                  </>
+                )}
               </div>
+
               <div className="flex gap-2 sm:ml-auto">
                 <Button
                   variant="outline"
@@ -143,13 +167,6 @@ export default function ArticlePage() {
                   className="border border-black rounded-none hover:bg-black hover:text-white"
                 >
                   <Share2 className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border border-black rounded-none hover:bg-black hover:text-white"
-                >
-                  <Bookmark className="h-4 w-4" />
                 </Button>
               </div>
             </div>
@@ -172,13 +189,13 @@ export default function ArticlePage() {
             {/* Footer (Tags & Share) */}
             <div className="mt-12 pt-8 border-t border-border">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-sm text-muted-foreground">Tags:</span>
+                <div className="flex items-center flex-wrap gap-2 text-sm text-muted-foreground">
+                  <span>Tags:</span>
                   {article.tags.map(tag => (
                     <button
                       key={tag}
                       className="px-3 py-1 text-xs border border-border hover:bg-muted rounded-none transition-colors"
-                      onClick={() => router.push(`/news?tag=${encodeURIComponent(tag)}`)}
+                      onClick={() => router.push(`/search?q=${encodeURIComponent(tag)}`)}
                     >
                       {tag}
                     </button>

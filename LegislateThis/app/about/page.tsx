@@ -5,44 +5,44 @@ export default function About() {
   const teamMembers = [
     {
       id: 1,
-      name: "Alex Johnson",
-      role: "Founder & Policy Director",
+      name: "Matias Sevak",
+      role: "Co-Founder",
       defaultImage: "/placeholder.svg?height=300&width=240",
       hoverImage: "/placeholder.svg?height=300&width=240",
     },
     {
       id: 2,
-      name: "Sam Rivera",
-      role: "Lead Developer & Designer",
+      name: "Evan Donath",
+      role: "Co-Founder",
       defaultImage: "/placeholder.svg?height=300&width=240",
       hoverImage: "/placeholder.svg?height=300&width=240",
     },
     // Duplicated entries to simulate larger team
     {
       id: 3,
-      name: "Alex Johnson",
-      role: "Founder & Policy Director",
+      name: "Matias Sevak",
+      role: "Lead Develor & Designer",
       defaultImage: "/placeholder.svg?height=300&width=240",
       hoverImage: "/placeholder.svg?height=300&width=240",
     },
     {
       id: 4,
-      name: "Sam Rivera",
-      role: "Lead Developer & Designer",
+      name: "Evan Donath",
+      role: "Lead Editor & Content Strategist",
       defaultImage: "/placeholder.svg?height=300&width=240",
       hoverImage: "/placeholder.svg?height=300&width=240",
     },
     {
       id: 5,
-      name: "Alex Johnson",
-      role: "Founder & Policy Director",
+      name: "Matias Sevak",
+      role: "Janitor",
       defaultImage: "/placeholder.svg?height=300&width=240",
       hoverImage: "/placeholder.svg?height=300&width=240",
     },
     {
       id: 6,
-      name: "Sam Rivera",
-      role: "Lead Developer & Designer",
+      name: "Evan Donath",
+      role: "Social Media Manager",
       defaultImage: "/placeholder.svg?height=300&width=240",
       hoverImage: "/placeholder.svg?height=300&width=240",
     },
@@ -68,13 +68,16 @@ export default function About() {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
                   <p className="text-muted-foreground mb-4">
-                    Legislate This exists to bridge the gap between complex legislation and everyday citizens. We
-                    believe that democracy works best when people are informed, engaged, and empowered to participate in
-                    the legislative process.
+                  Our mission is to make American legislation clear, accessible, and honest.
+We break down complex bills and policies so that anyone, no matter their background, can understand what’s 
+happening in our government. We highlight the wins, the failures, and the things flying under the radar.
                   </p>
                   <p className="text-muted-foreground">
-                    Through clear communication, accessible resources, and innovative tools, we make it easier for
-                    everyone to understand, track, and influence the laws that shape our society.
+                  We believe that informed people make stronger democracies.
+                   If elected officials aren’t voting in line with their constituents’ values, 
+                   people deserve to know. If a new bill could change your rights, your neighborhood, 
+                   or your future, we’ll explain it. Clearly, quickly, and without the political noise.
+                  Legislate This exists to empower citizens with facts, not spin.
                   </p>
                 </div>
 
@@ -97,13 +100,16 @@ export default function About() {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Our Story</h2>
                   <p className="text-muted-foreground mb-4">
-                    Founded in 2024, Legislate This emerged from a simple observation: too many people feel disconnected
-                    from the legislative process that directly affects their lives. We started as a small team of policy
-                    enthusiasts, designers, and technologists who wanted to change that.
+                  Legislate This was founded in 2025 by two 16-year-olds who saw a problem (and an opportunity). One of us was passionate about politics and legislation. The other loved building apps. We teamed up to create something that could make a difference.
+
+
                   </p>
                   <p className="text-muted-foreground">
-                    Today, we serve thousands of users who rely on our platform to stay informed about legislation,
-                    understand complex policy issues, and take meaningful action in their communities.
+                  We realized that most news makes it feel like nothing works in this country. Everything sounds broken, and it’s easy to feel like democracy is a mess. But that’s not the full picture. There are real, important laws being debated and passed, some good and some not, and we wanted to highlight that.
+                  Legislate This is our way of showing the real workings of American democracy. What’s getting done. What’s not. And why it matters.
+
+
+
                   </p>
                 </div>
 
