@@ -21,11 +21,10 @@ export default function Privacy() {
               <h2 className="text-2xl font-bold mb-4">Information We Collect</h2>
               <p className="text-muted-foreground mb-4">
                 At Legislate This, we are committed to protecting your privacy. We collect information you provide
-                directly to us, such as when you create an account, subscribe to our newsletter, or contact us.
+                directly to us, when you contact us.
               </p>
               <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                <li>Personal information (name, email address, phone number)</li>
-                <li>Communication preferences and subscription settings</li>
+                <li>Personal information (name, email and address)</li>
                 <li>Messages and correspondence you send to us</li>
                 <li>Usage data and analytics to improve our services</li>
               </ul>
@@ -39,7 +38,6 @@ export default function Privacy() {
               <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                 <li>Delivering legislative updates and news</li>
                 <li>Responding to your inquiries and providing customer support</li>
-                <li>Sending you newsletters and important notifications</li>
                 <li>Analyzing usage patterns to enhance user experience</li>
               </ul>
             </section>
