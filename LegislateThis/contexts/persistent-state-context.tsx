@@ -18,7 +18,6 @@ interface PersistentStateContextType extends AppState {
   setCurrentCursor: (cursor: string) => void
   setActiveRightButton: (button: string) => void
   setShowMusicPlayer: (show: boolean) => void
-  setHeartClicked: (clicked: boolean) => void
   resetCursor: () => void
 }
 
@@ -58,7 +57,6 @@ export function PersistentStateProvider({ children }: { children: ReactNode }) {
     setCurrentCursor: (cursor: string) => updateState({ currentCursor: cursor }),
     setActiveRightButton: (button: string) => updateState({ activeRightButton: button }),
     setShowMusicPlayer: (show: boolean) => updateState({ showMusicPlayer: show }),
-    setHeartClicked: (clicked: boolean) => updateState({ heartClicked: clicked }),
     resetCursor: () => updateState({ activeCursorTool: "", currentCursor: "default" }),
   }
 

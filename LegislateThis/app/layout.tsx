@@ -12,6 +12,9 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Legislate This",
   description: "Making legislation accessible, understandable, and actionable for everyone.",
+  icons: {
+    icon: "favicon.png",
+  },
 }
 
 export default function RootLayout({

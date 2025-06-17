@@ -69,7 +69,7 @@ export default function Terms() {
               <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
               <p className="text-muted-foreground">
                 If you have any questions about these Terms of Service, please
-                contact us at <a href="mailto:legal@legislatethis.com" className="underline">legal@legislatethis.com</a> or
+                contact us at <a href="mailto:contact.legislate.this@gmail.com" className="underline">contact.legislate.this@gmail.com</a> or
                 through our contact form.
               </p>
             </section>

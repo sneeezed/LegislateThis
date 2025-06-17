@@ -79,7 +79,7 @@ export default function Privacy() {
             <section>
               <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
               <p className="text-muted-foreground">
-                If you have any questions about this Privacy Policy, please contact us at privacy@legislatethis.com or
+                If you have any questions about this Privacy Policy, please contact us at <a href="mailto:contact.legislate.this@gmail.com" className="underline">contact.legislate.this@gmail.com</a> or
                 through our contact form.
               </p>
             </section>
