@@ -9,7 +9,8 @@ export interface Article {
   body: string
   tags: string[]
   publishedAt: Date
-  status?: string;
+  status?: string
+  summary: string;
 
 }
 
@@ -31,7 +32,8 @@ export async function fetchArticleBySlug(
     body: data.body,
     tags: data.tags || [],
     publishedAt: data.publishedAt.toDate(),
-    status: data.status
+    status: data.status,
+    summary: data.summary
 
   }
 }

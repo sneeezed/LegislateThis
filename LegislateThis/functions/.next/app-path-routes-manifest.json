@@ -1,0 +1,13 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/contact/page": "/contact",
+  "/faqs/page": "/faqs",
+  "/information/page": "/information",
+  "/news/page": "/news",
+  "/page": "/",
+  "/privacy/page": "/privacy",
+  "/search/page": "/search",
+  "/terms/page": "/terms",
+  "/articles/[slug]/page": "/articles/[slug]"
+}

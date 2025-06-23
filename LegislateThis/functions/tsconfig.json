@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "lib": ["es2020","dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "lib",
+    "target": "es2020",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,          // ← add this
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]      // ← ensure we don’t type-check them
+}
