@@ -10,12 +10,20 @@ export interface Article {
   tags: string[]
   publishedAt: Date
   status?: string
-  summary: string;
-
+  summary: string
+  isCongress?: boolean
+  // Congressional-specific fields (optional)
+  party?: "Democratic" | "Republican" | "Independent"
+  state?: string
+  district?: string
+  chamber?: "House" | "Senate"
+  score?: number
+  imageUrl?: string
 }
 
 /**
  * Fetch a single article by its slug (document ID) from Firestore.
+ * Works for both news articles and congressional overviews.
  */
 export async function fetchArticleBySlug(
   slug: string
@@ -33,8 +41,15 @@ export async function fetchArticleBySlug(
     tags: data.tags || [],
     publishedAt: data.publishedAt.toDate(),
     status: data.status,
-    summary: data.summary
-
+    summary: data.summary,
+    isCongress: data.isCongress || false,
+    // Congressional-specific fields
+    party: data.party,
+    state: data.state,
+    district: data.district,
+    chamber: data.chamber,
+    score: data.score,
+    imageUrl: data.imageUrl || data.coverImage
   }
 }
 

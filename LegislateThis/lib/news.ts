@@ -11,11 +11,12 @@ export interface NewsArticle {
   featured?: boolean
   tags: string[]
   status?: string;
-
+  isCongress: boolean;
 }
 
 /**
- * Fetch all articles for the news listing, ordered newest first.
+ * Fetch all articles for the news listing, excluding congressional overviews.
+ * Only fetches articles where isCongress is false or undefined.
  */
 export async function fetchNewsArticles(): Promise<NewsArticle[]> {
   const q = query(
@@ -24,21 +25,23 @@ export async function fetchNewsArticles(): Promise<NewsArticle[]> {
   )
   const snap = await getDocs(q)
 
-  return snap.docs.map((doc) => {
-    const data = doc.data()
-    return {
-      id: doc.id,
-      slug: doc.id,
-      title: data.title,
-      summary: data.summary,
-      category: data.category,
-      publishedAt: data.publishedAt.toDate(),
-      featured: !!data.featured,
-      tags: data.tags,
-      status: data.status
-
-    }
-  })
+  return snap.docs
+    .map((doc) => {
+      const data = doc.data()
+      return {
+        id: doc.id,
+        slug: doc.id,
+        title: data.title,
+        summary: data.summary,
+        category: data.category,
+        publishedAt: data.publishedAt.toDate(),
+        featured: !!data.featured,
+        tags: data.tags,
+        status: data.status,
+        isCongress: data.isCongress || false
+      }
+    })
+    .filter(article => !article.isCongress) // Filter out congressional articles on client side
 }
 
 /**
