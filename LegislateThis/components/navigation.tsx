@@ -23,7 +23,6 @@ export function Navigation() {
   const { theme, setTheme } = useTheme()
   const router = useRouter()
   const pathname = usePathname()
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
 
   // audio context
   const { isPlaying, volume, play, pause, setVolume, showSongInfo, setShowSongInfo } = useAudio()
@@ -88,13 +87,6 @@ export function Navigation() {
     const interval = setInterval(updateWeather, 300000)
     return () => clearInterval(interval)
   }, [])
-
-  // Close mobile menu when search is activated
-  useEffect(() => {
-    if (showSearchBar) {
-      setShowMobileMenu(false)
-    }
-  }, [showSearchBar])
 
   const handleThemeToggle = () => {
     const themes = ["light", "dark", "blue", "autumn", "sage", "lavender"]
@@ -204,7 +196,7 @@ export function Navigation() {
       <div className="fixed top-4 left-4 right-4 z-50">
         <header className="flex justify-between lg-custom:justify-between items-center">
           {/* Left Navigation - Centered on Mobile/Tablet (up to 1000px) */}
-          <nav className="flex mx-auto lg-custom:mx-0 bg-white dark:bg-gray-900 blue:bg-blue-50 border border-black shadow-lg transition-all duration-300 ease-in-out">
+          <nav className="flex mx-auto lg-custom:mx-0 bg-white dark:bg-gray-900 blue:bg-blue-50 border border-black shadow-lg transition-all duration-500 ease-in-out">
             {/* search toggle + animated input */}
             <div className="flex items-center">
               <button
@@ -214,13 +206,9 @@ export function Navigation() {
                 <Search className="h-4 w-4" />
               </button>
               <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
                   showSearchBar
-                    ? `${
-                        showMobileMenu
-                          ? "w-2 min-[430px]:w-2"
-                          : "w-48 min-[430px]:w-64"
-                      } opacity-100`
+                    ? "w-48 min-[430px]:w-64 opacity-100"
                     : "w-0 opacity-0"
                 }`}
               >
@@ -236,57 +224,39 @@ export function Navigation() {
               </div>
             </div>
   
-            {/* "News" button stays always visible */}
-            <button
-              className={`border-r border-black px-4 py-3 transition-colors hover:bg-black hover:text-white ${
-                activeNavItem === "news" ? "bg-black text-white" : ""
-              }`}
-              onClick={() => handleNavigation("News")}
-            >
-              News
-            </button>
-  
-            {/* Desktop: wrap Info/About/Contact in an animating container */}
+            {/* Navigation items - hide completely when search is active */}
             <div
               className={`
-                hidden min-[430px]:flex items-center 
+                flex items-center 
                 overflow-hidden 
                 transform origin-left 
-                transition-all duration-300 ease-in-out
-                ${showSearchBar ? "w-0 opacity-0 scale-x-0 pointer-events-none" : "w-[18rem] opacity-100 scale-x-100"}
+                transition-all duration-500 ease-in-out
+                ${showSearchBar ? "opacity-0 scale-x-0 pointer-events-none" : "opacity-100 scale-x-100"}
               `}
+              style={{
+                transitionDelay: showSearchBar ? "0ms" : "50ms",
+                width: showSearchBar ? "0px" : "180px"
+              }}
             >
-              {["Information", "About", "Contact"].map((item) => (
-                <button
-                  key={item}
-                  className={`border-r border-black px-4 py-3 transition-colors hover:bg-black hover:text-white ${
-                    activeNavItem === item.toLowerCase() ? "bg-black text-white" : ""
-                  }`}
-                  onClick={() => handleNavigation(item)}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-  
-            {/* Mobile: Hamburger menu button (only visible on screens < 430px) */}
-            <div className="min-[430px]:hidden relative">
-              <div
-                className={`
-                  flex items-center 
-                  overflow-hidden 
-                  transform origin-left 
-                  transition-all duration-300 ease-in-out
-                  ${showSearchBar ? "w-0 opacity-0 scale-x-0 pointer-events-none" : "w-auto opacity-100 scale-x-100"}
-                `}
+              {/* News button */}
+              <button
+                className={`border-r border-black px-4 py-3 transition-colors hover:bg-black hover:text-white ${
+                  activeNavItem === "news" ? "bg-black text-white" : ""
+                }`}
+                onClick={() => handleNavigation("News")}
               >
-                <button
-                  className="border-r border-black px-3 py-4 transition-colors hover:bg-black hover:text-white"
-                  onClick={() => setShowMobileMenu(!showMobileMenu)}
-                >
-                  {showMobileMenu ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-                </button>
-              </div>
+                News
+              </button>
+
+              {/* Congress button */}
+              <button
+                className={`px-4 py-3 transition-colors hover:bg-black hover:text-white ${
+                  activeNavItem === "congress" ? "bg-black text-white" : ""
+                }`}
+                onClick={() => handleNavigation("Congress")}
+              >
+                Congress
+              </button>
             </div>
           </nav>
   
@@ -401,41 +371,7 @@ export function Navigation() {
             </div>
           </div>
         </header>
-  
-        {/* Mobile Information Section - positioned directly beneath main nav bar */}
-        <div className="min-[430px]:hidden">
-          {showMobileMenu && !showSearchBar && (
-            <div
-              className="bg-white dark:bg-gray-900 blue:bg-blue-50 border border-black border-t-0 shadow-lg mx-auto animate-in slide-in-from-top-2 duration-200"
-              style={{ width: "fit-content" }}
-            >
-              <div>
-                {["About", "Contact", "Information"].map((item) => (
-                  <button
-                    key={item}
-                    className="w-full text-left px-4 py-3 border-b border-black/10 transition-colors hover:bg-black hover:text-white min-w-[200px]"
-                    onClick={() => {
-                      handleNavigation(item)
-                      setShowMobileMenu(false)
-                    }}
-                  >
-                    {item}
-                  </button>
-                ))}
-  
-                <button
-                  className="w-full text-left px-4 py-3 border-b border-black/10 last:border-b-0 transition-colors hover:bg-black hover:text-white flex items-center gap-2 min-w-[200px]"
-                  onClick={handleThemeToggle}
-                >
-                  {mounted && getThemeIcon()}
-                  <span>Change Theme</span>
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
     </>
   )
-  
 }
