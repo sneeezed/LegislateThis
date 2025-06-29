@@ -25,9 +25,9 @@ export async function searchArticles(query: string): Promise<SearchResult[]> {
     return {
       id: doc.id,
       slug: doc.id,
-      title: data.title,
-      summary: data.summary,
-      category: data.category,
+      title: data.title || "",
+      summary: data.summary || "",
+      category: data.category || "",
       status: data.status,
       publishedAt:
         data.publishedAt && typeof data.publishedAt.toDate === "function"
@@ -43,9 +43,9 @@ export async function searchArticles(query: string): Promise<SearchResult[]> {
   const q = query.toLowerCase();
   return all.filter(
     (r) =>
-      r.title.toLowerCase().includes(q) ||
-      r.summary.toLowerCase().includes(q) ||
-      r.category.toLowerCase().includes(q) ||
-      r.tags.some((tag) => tag.toLowerCase().includes(q))
+      (r.title && r.title.toLowerCase().includes(q)) ||
+      (r.summary && r.summary.toLowerCase().includes(q)) ||
+      (r.category && r.category.toLowerCase().includes(q)) ||
+      (r.tags && r.tags.some((tag) => tag && tag.toLowerCase().includes(q)))
   );
 }
