@@ -6,45 +6,44 @@ export default function About() {
     {
       id: 1,
       name: "Matias Sevak",
-      role: "Co-Founder",
+      role: "Co-Founder & CEO",
       defaultImage: "/Matias1.jpg?height=300&width=240",
-      hoverImage: "/Matias2.jpg?height=300&width=240",
+      hoverImage: "/MatiasBaby2.JPG?height=300&width=240",
     },
     {
       id: 2,
-      name: "Evan Donath",
-      role: "Co-Founder",
-      defaultImage: "/Evan1.JPG?height=300&width=240",
-      hoverImage: "/Evan2.JPG?height=300&width=240",
+      name: "Didi Pathial",
+      role: "Co-Founder & Lead Editor",
+      defaultImage: "/Didi1.JPG?height=300&width=240",
+      hoverImage: "/DidiBaby2.jpg?height=300&width=240",
     },
-    // Duplicated entries to simulate larger team
     {
       id: 3,
-      name: "Matias Sevak",
-      role: "Lead Develor & Designer",
-      defaultImage: "/Matias1.jpg?height=300&width=240",
-      hoverImage: "/Matias2.jpg?height=300&width=240",
+      name: "Jonah Levy",
+      role: "Co Founder & Lead Publisher",
+      defaultImage: "/Jonah1.JPG?height=300&width=240",
+      hoverImage: "/JonahBaby2.jpg?height=300&width=240",
     },
     {
       id: 4,
-      name: "Evan Donath",
-      role: "Lead Editor",
-      defaultImage: "/Evan1.JPG?height=300&width=240",
-      hoverImage: "/Evan2.JPG?height=300&width=240",
+      name: "Matias Sevak",
+      role: "Lead Developer & Designer",
+      defaultImage: "/Matias1.jpg?height=300&width=240",
+      hoverImage: "/MatiasBaby2.JPG?height=300&width=240",
     },
     {
       id: 5,
-      name: "Matias Sevak",
-      role: "Social Media Manager",
-      defaultImage: "/Matias1.jpg?height=300&width=240",
-      hoverImage: "/Matias2.jpg?height=300&width=240",
+      name: "Evan Donath",
+      role: "Co & Founder & Head of Research",
+      defaultImage: "/Evan1.JPG?height=300&width=240",
+      hoverImage: "/EvanBaby2.JPG?height=300&width=240",
     },
     {
       id: 6,
-      name: "Evan Donath",
-      role: "Content Strategist",
-      defaultImage: "/Evan1.JPG?height=300&width=240",
-      hoverImage: "/Evan2.JPG?height=300&width=240",
+      name: "Matias Sevak",
+      role: "Marketing & Outreach",
+      defaultImage: "/Matias1.jpg?height=300&width=240",
+      hoverImage: "/MatiasBaby2.JPG?height=300&width=240",
     },
   ]
 
@@ -68,9 +67,11 @@ export default function About() {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
                   <p className="text-muted-foreground mb-4">
-                  Our mission is to make American legislation clear, accessible, and honest.
-We break down complex bills and policies so that anyone, no matter their background, can understand what’s 
-happening in our government. We highlight the wins, the failures, and the things flying under the radar.
+                  At Legislate This, we’re on a mission to make Congress make sense.
+We believe everyone deserves to understand the laws that shape their lives (without needing a law degree). That’s why we break down complex legislation and profile every member of Congress in plain, readable language. Whether you're trying to understand a new bill or figure out if your representative actually represents you, we give you the tools to stay informed and empowered.
+We’re not just another news app.
+
+
                   </p>
                   <p className="text-muted-foreground">
                   We believe that informed people make stronger democracies.
@@ -100,13 +101,13 @@ happening in our government. We highlight the wins, the failures, and the things
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Our Story</h2>
                   <p className="text-muted-foreground mb-4">
-                  Legislate This was founded in 2025 by two 16-year-olds who saw a problem (and an opportunity). One of us was passionate about politics and legislation. The other loved building apps. We teamed up to create something that could make a difference.
-
+                 My name is Matias, im 16 and I started Legislate This with three of my friends because we were tired of how hard it is to understand what’s happening in Congress. Every time we looked up a new bill or tried to figure out what our representatives were doing, we’d find confusing articles, outdated sites, or walls of legal jargon. So we decided to build something better.
 
                   </p>
                   <p className="text-muted-foreground">
-                  We realized that most news makes it feel like nothing works in this country. Everything sounds broken, and it’s easy to feel like democracy is a mess. But that’s not the full picture. There are real, important laws being debated and passed, some good and some not, and we wanted to highlight that.
-                  Legislate This is our way of showing the real workings of American democracy. What’s getting done. What’s not. And why it matters.
+                  Together, we created a platform that combines clear breakdowns of legislation with searchable profiles of every member of Congress, their voting history, where their money comes from, and whether they’re really serving the people.
+
+We didn’t want to just copy existing news apps. We wanted something actually useful. Something that feels real, honest, and welcoming.
 
 
 
@@ -146,7 +147,7 @@ happening in our government. We highlight the wins, the failures, and the things
               {/* Left-aligned team section headers */}
               <div className="text-left mb-8">
                 <h2 className="text-3xl font-bold mb-4">The Team</h2>
-                <p className="text-muted-foreground italic">There are only two team members.</p>
+                <p className="text-muted-foreground italic">and their baby photos.</p>
               </div>
 
               {/* Team Grid */}
