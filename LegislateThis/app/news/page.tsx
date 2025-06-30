@@ -11,8 +11,24 @@ import {
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
+// Generate a fixed default ticker text for SSR/initial render
+const DEFAULT_TICKER_TEXT = Array(40).fill("News").join(" • ") + " • ";
+
+// Helper for client-side ticker text
+function getClientTickerText() {
+  const width = window.innerWidth;
+  let repetitions = 40;
+  if (width <= 767) repetitions = 60;
+  else if (width <= 1000) repetitions = 50;
+  else if (width <= 1279) repetitions = 40;
+  else repetitions = 35;
+  const baseText = Array(repetitions).fill("News").join(" • ") + " • ";
+  return baseText + baseText;
+}
+
 export default function News() {
-  const [tickerText, setTickerText] = useState("")
+  // Always use the same initial value for SSR and SSG
+  const [tickerText, setTickerText] = useState(DEFAULT_TICKER_TEXT);
   const [articles, setArticles] = useState<NewsArticle[]>([])
   const [articlesLoading, setArticlesLoading] = useState(true)
   const [featuredPage, setFeaturedPage] = useState(1)
@@ -35,24 +51,13 @@ export default function News() {
     }
   }
 
-  // Generate ticker text based on screen size
   useEffect(() => {
-    const generateTickerText = () => {
-      const width = window.innerWidth
-      let repetitions = 40
-      if (width <= 767) repetitions = 60
-      else if (width <= 1000) repetitions = 50
-      else if (width <= 1279) repetitions = 40
-      else repetitions = 35
-      const baseText = Array(repetitions).fill("News").join(" • ") + " • "
-      return baseText + baseText
-    }
-
-    const updateTickerText = () => setTickerText(generateTickerText())
-    updateTickerText()
-    window.addEventListener("resize", updateTickerText)
-    return () => window.removeEventListener("resize", updateTickerText)
-  }, [])
+    // Only run on client
+    const updateTickerText = () => setTickerText(getClientTickerText());
+    updateTickerText();
+    window.addEventListener("resize", updateTickerText);
+    return () => window.removeEventListener("resize", updateTickerText);
+  }, []);
 
   // Load articles only
   useEffect(() => {
@@ -102,7 +107,7 @@ export default function News() {
         </div>
 
         {/* Content with Loading State */}
-        <div className="border-t border-border">
+        <div className="border-t border-border min-h-[700px]">
           {isLoading ? (
             <NewsPageSkeleton />
           ) : (
@@ -151,7 +156,7 @@ export default function News() {
                                 {article.tags.slice(0, 3).map((tag) => (
                                   <span
                                     key={tag}
-                                    className="px-2 py-1 text-xs bg-muted border border-border hover:bg-accent transition-colors cursor-pointer"
+                                    className="px-2 py-1 text-xs border border-border hover:bg-accent transition-colors cursor-pointer bg-[var(--accent)] text-[var(--accent-foreground)]"
                                   >
                                     {tag}
                                   </span>

@@ -202,6 +202,7 @@ export function Navigation() {
               <button
                 className="border-r border-black py-4 px-3 flex items-center justify-center transition-colors hover:bg-black hover:text-white"
                 onClick={handleSearchToggle}
+                aria-label="Open search"
               >
                 <Search className="h-4 w-4" />
               </button>

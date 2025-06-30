@@ -1,6 +1,6 @@
 export function NewsPageSkeleton() {
   return (
-    <div className="animate-pulse">
+    <div className="animate-pulse min-h-[700px]">
       <div className="grid lg-custom:grid-cols-2 xl:grid-cols-3 gap-4 lg-custom:gap-6 p-4 lg-custom:p-6">
         {/* Featured Story Skeleton */}
         <div className="xl:col-span-2 space-y-4">
