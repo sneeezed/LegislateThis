@@ -22,7 +22,7 @@ export function Footer() {
               <p>&copy; {new Date().getFullYear()} Legislate This. All rights reserved.</p>
               <div className="flex gap-4">
                 <button onClick={() => handleLinkClick("/about")} className="hover:text-foreground transition-colors">
-                  About Us
+                  About
                 </button>
                 <button onClick={() => handleLinkClick("/contact")} className="hover:text-foreground transition-colors">
                   Contact

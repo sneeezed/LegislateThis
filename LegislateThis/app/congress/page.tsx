@@ -125,7 +125,10 @@ export default function CongressMembers() {
                 <div className="flex items-center gap-4">
                   <SortDropdown value={sortBy} onSort={handleSort} />
                   <span className="text-sm text-muted-foreground">
-                    {filteredRepresentatives.length} representatives
+                    {filteredRepresentatives.length}
+                    {' '}
+                    <span className="inline min-[411px]:inline-block max-[410px]:hidden">representatives</span>
+                    <span className="inline max-[410px]:inline-block min-[411px]:hidden">reps</span>
                     {searchQuery && ` for "${searchQuery}"`}
                   </span>
                 </div>

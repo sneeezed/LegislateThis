@@ -55,6 +55,24 @@ export function RepresentativeCard({ representative, className }: { representati
             alt={representative.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
           />
+          {/* Score Badge - overlay for <=540px */}
+          <div className={cn(
+            "absolute top-2 right-2 z-10 w-10 h-10 flex items-center justify-center font-bold text-xs shadow-lg border border-border rounded-full",
+            getScoreColor(representative.score),
+            "max-[540px]:flex",
+            "min-[541px]:hidden"
+          )}>
+            {representative.score}
+          </div>
+          {/* Score Badge - overlay for >540px */}
+          <div className={cn(
+            "absolute top-2 right-2 z-10 w-12 h-12 flex items-center justify-center font-bold text-sm shadow-lg border border-border rounded-full",
+            getScoreColor(representative.score),
+            "hidden",
+            "min-[541px]:flex"
+          )}>
+            {representative.score}
+          </div>
         </div>
       </div>
 
@@ -71,7 +89,8 @@ export function RepresentativeCard({ representative, className }: { representati
             {/* Location and Party */}
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground">
-                {representative.state} • {representative.district} District
+                {representative.state}
+                <span className="inline min-[410px]:inline-block max-[409px]:hidden"> • {representative.district} District</span>
               </p>
               <div className="flex items-center gap-2">
                 <Badge variant="secondary" className={cn("text-xs", getPartyColor(representative.party))}>
@@ -81,16 +100,6 @@ export function RepresentativeCard({ representative, className }: { representati
                   {representative.chamber}
                 </Badge>
               </div>
-            </div>
-          </div>
-
-          {/* Score Badge - positioned to the right */}
-          <div className="ml-4 flex-shrink-0">
-            <div className={cn(
-              "rounded-full w-12 h-12 flex items-center justify-center font-bold text-sm shadow-lg border border-border",
-              getScoreColor(representative.score)
-            )}>
-              {representative.score}
             </div>
           </div>
         </div>

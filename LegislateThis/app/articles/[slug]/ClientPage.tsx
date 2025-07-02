@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Share2 } from "lucide-react";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { db } from "@/contexts/firebase";
+import { getStatusColor } from "@/components/status-badge";
 
 // Type for the related-articles preview
 interface RelatedArticle {
@@ -32,20 +33,6 @@ export default function ClientPage({ slug }: ClientPageProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([]);
-
-  // Status badge color helper
-  const getStatusColor = (status?: string) => {
-    switch (status) {
-      case "In Committee":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200";
-      case "Passed":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200";
-      case "Failed":
-        return "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200";
-      default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200";
-    }
-  };
 
   // Load the main article
   useEffect(() => {
