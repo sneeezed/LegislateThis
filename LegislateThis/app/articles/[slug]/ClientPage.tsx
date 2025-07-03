@@ -110,6 +110,43 @@ export default function ClientPage({ slug }: ClientPageProps) {
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <main className="flex-grow pt-20">
+        {/* Structured Data for SEO */}
+        {article && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": article.title,
+                "description": article.summary,
+                "author": {
+                  "@type": "Organization",
+                  "name": "Legislate This",
+                  "url": "https://legislatethis.org"
+                },
+                "publisher": {
+                  "@type": "Organization",
+                  "name": "Legislate This",
+                  "url": "https://legislatethis.org",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://legislatethis.org/favicon.png"
+                  }
+                },
+                "datePublished": article.publishedAt.toISOString(),
+                "dateModified": article.publishedAt.toISOString(),
+                "mainEntityOfPage": {
+                  "@type": "WebPage",
+                  "@id": `https://legislatethis.org/articles/${slug}`
+                },
+                "keywords": article.tags.join(", "),
+                "articleSection": "Legislation",
+                "inLanguage": "en-US"
+              })
+            }}
+          />
+        )}
 
         {/* Article Header */}
         <div className="py-8 lg-custom:py-12 px-4">
@@ -216,6 +253,27 @@ export default function ClientPage({ slug }: ClientPageProps) {
                       </div>
                     </div>
                   ))}
+                </div>
+                {/* Related Topics Section */}
+                <div className="mt-8 pt-6 border-t border-border">
+                  <h4 className="text-lg font-semibold mb-4">Related Topics</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {article.tags.slice(0, 5).map(tag => (
+                      <button
+                        key={tag}
+                        className="px-3 py-1 text-sm border border-border hover:bg-muted rounded-none transition-colors"
+                        onClick={() => router.push(`/search?q=${encodeURIComponent(tag)}`)}
+                      >
+                        More about {tag}
+                      </button>
+                    ))}
+                    <button
+                      className="px-3 py-1 text-sm border border-border hover:bg-muted rounded-none transition-colors"
+                      onClick={() => router.push('/search')}
+                    >
+                      Search All Bills
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

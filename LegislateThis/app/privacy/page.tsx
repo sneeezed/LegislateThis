@@ -1,4 +1,33 @@
 import { Navigation } from "@/components/navigation"
+import { Metadata } from "next"
+
+// SEO Metadata
+export const metadata: Metadata = {
+  title: "Privacy Policy | Legislate This Data Protection",
+  description: "Learn how Legislate This protects your privacy and handles your data. Our comprehensive privacy policy explains how we collect, use, and safeguard your information.",
+  keywords: [
+    "privacy policy",
+    "data protection",
+    "legislate this privacy",
+    "user privacy",
+    "data security",
+    "information handling"
+  ],
+  openGraph: {
+    title: "Privacy Policy | Legislate This Data Protection",
+    description: "Learn how Legislate This protects your privacy and handles your data. Our comprehensive privacy policy explains how we collect, use, and safeguard your information.",
+    url: "https://legislatethis.org/privacy",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Legislate This Data Protection",
+    description: "Learn how Legislate This protects your privacy and handles your data. Our comprehensive privacy policy explains how we collect, use, and safeguard your information.",
+  },
+  alternates: {
+    canonical: "/privacy",
+  },
+}
 
 export default function Privacy() {
   return (

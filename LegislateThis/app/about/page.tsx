@@ -1,4 +1,34 @@
 import { Navigation } from "@/components/navigation"
+import { Metadata } from "next"
+
+// SEO Metadata
+export const metadata: Metadata = {
+  title: "About Legislate This | Making Legislation Accessible",
+  description: "Learn about our mission to make Congress make sense. We're a team of young people breaking down complex legislation and profiling every member of Congress in plain language.",
+  keywords: [
+    "about legislate this",
+    "legislation accessibility",
+    "congress explained",
+    "civic engagement",
+    "democracy tools",
+    "young people politics",
+    "legislative transparency"
+  ],
+  openGraph: {
+    title: "About Legislate This | Making Legislation Accessible",
+    description: "Learn about our mission to make Congress make sense. We're a team of young people breaking down complex legislation and profiling every member of Congress in plain language.",
+    url: "https://legislatethis.org/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Legislate This | Making Legislation Accessible",
+    description: "Learn about our mission to make Congress make sense. We're a team of young people breaking down complex legislation and profiling every member of Congress in plain language.",
+  },
+  alternates: {
+    canonical: "/about",
+  },
+}
 
 export default function About() {
   // Team member data - duplicated to simulate larger team
@@ -67,17 +97,17 @@ export default function About() {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
                   <p className="text-muted-foreground mb-4">
-                  At Legislate This, we’re on a mission to make Congress make sense.
-We believe everyone deserves to understand the laws that shape their lives (without needing a law degree). That’s why we break down complex legislation and profile every member of Congress in plain, readable language. Whether you're trying to understand a new bill or figure out if your representative actually represents you, we give you the tools to stay informed and empowered.
-We’re not just another news app.
+                  At Legislate This, we're on a mission to make Congress make sense.
+We believe everyone deserves to understand the laws that shape their lives (without needing a law degree). That's why we break down complex legislation and profile every member of Congress in plain, readable language. Whether you're trying to understand a new bill or figure out if your representative actually represents you, we give you the tools to stay informed and empowered.
+We're not just another news app.
 
 
                   </p>
                   <p className="text-muted-foreground">
                   We believe that informed people make stronger democracies.
-                   If elected officials aren’t voting in line with their constituents’ values, 
+                   If elected officials aren't voting in line with their constituents' values, 
                    people deserve to know. If a new bill could change your rights, your neighborhood, 
-                   or your future, we’ll explain it. Clearly, quickly, and without the political noise.
+                   or your future, we'll explain it. Clearly, quickly, and without the political noise.
                   Legislate This exists to empower citizens with facts, not spin.
                   </p>
                 </div>
@@ -101,13 +131,13 @@ We’re not just another news app.
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Our Story</h2>
                   <p className="text-muted-foreground mb-4">
-                 My name is Matias, im 16 and I started Legislate This with three of my friends because we were tired of how hard it is to understand what’s happening in Congress. Every time we looked up a new bill or tried to figure out what our representatives were doing, we’d find confusing articles, outdated sites, or walls of legal jargon. So we decided to build something better.
+                 My name is Matias, im 16 and I started Legislate This with three of my friends because we were tired of how hard it is to understand what's happening in Congress. Every time we looked up a new bill or tried to figure out what our representatives were doing, we'd find confusing articles, outdated sites, or walls of legal jargon. So we decided to build something better.
 
                   </p>
                   <p className="text-muted-foreground">
-                  Together, we created a platform that combines clear breakdowns of legislation with searchable profiles of every member of Congress, their voting history, where their money comes from, and whether they’re really serving the people.
+                  Together, we created a platform that combines clear breakdowns of legislation with searchable profiles of every member of Congress, their voting history, where their money comes from, and whether they're really serving the people.
 
-We didn’t want to just copy existing news apps. We wanted something actually useful. Something that feels real, honest, and welcoming.
+We didn't want to just copy existing news apps. We wanted something actually useful. Something that feels real, honest, and welcoming.
 
 
 

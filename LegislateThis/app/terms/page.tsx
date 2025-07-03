@@ -1,4 +1,33 @@
 import { Navigation } from "@/components/navigation"
+import { Metadata } from "next"
+
+// SEO Metadata
+export const metadata: Metadata = {
+  title: "Terms of Service | Legislate This Usage Policy",
+  description: "Read our terms of service to understand how to use Legislate This. Learn about acceptable use, content policies, and your rights when using our legislative information platform.",
+  keywords: [
+    "terms of service",
+    "usage policy",
+    "legislate this terms",
+    "acceptable use",
+    "content policy",
+    "user agreement"
+  ],
+  openGraph: {
+    title: "Terms of Service | Legislate This Usage Policy",
+    description: "Read our terms of service to understand how to use Legislate This. Learn about acceptable use, content policies, and your rights when using our legislative information platform.",
+    url: "https://legislatethis.org/terms",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | Legislate This Usage Policy",
+    description: "Read our terms of service to understand how to use Legislate This. Learn about acceptable use, content policies, and your rights when using our legislative information platform.",
+  },
+  alternates: {
+    canonical: "/terms",
+  },
+}
 
 export default function Terms() {
   return (

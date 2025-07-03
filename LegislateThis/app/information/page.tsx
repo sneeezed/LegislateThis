@@ -1,4 +1,34 @@
 import { Navigation } from "@/components/navigation"
+import { Metadata } from "next"
+
+// SEO Metadata
+export const metadata: Metadata = {
+  title: "Legislative Process Guide | How Bills Become Laws",
+  description: "Learn how bills become laws with our comprehensive legislative process guide. Understand the journey from proposal to implementation and find resources for civic engagement.",
+  keywords: [
+    "legislative process",
+    "how bills become laws",
+    "congressional process",
+    "bill to law",
+    "civic engagement",
+    "legislative resources",
+    "congressional procedure"
+  ],
+  openGraph: {
+    title: "Legislative Process Guide | How Bills Become Laws",
+    description: "Learn how bills become laws with our comprehensive legislative process guide. Understand the journey from proposal to implementation and find resources for civic engagement.",
+    url: "https://legislatethis.org/information",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Legislative Process Guide | How Bills Become Laws",
+    description: "Learn how bills become laws with our comprehensive legislative process guide. Understand the journey from proposal to implementation and find resources for civic engagement.",
+  },
+  alternates: {
+    canonical: "/information",
+  },
+}
 
 export default function Information() {
   return (
@@ -79,7 +109,7 @@ export default function Information() {
             <div className="space-y-4">
               <h2 className="text-2xl font-bold">How We Get Our Information</h2>
               <p className="text-muted-foreground">
-              We do the research so you don’t have to. Every article we publish is based on real legislation, official government sources, and trusted news outlets.
+              We do the research so you don't have to. Every article we publish is based on real legislation, official government sources, and trusted news outlets.
               </p>
               <p className="text-muted-foreground">
               We usually use Congress.gov for bill texts and summaries, GovTrack.us for tracking progress, the Congressional Research Service (CRS) for nonpartisan reports, and the Congressional Budget Office (CBO) for cost and budget analysis. We also reference trusted journalism outlets to provide context and real-world impact. 

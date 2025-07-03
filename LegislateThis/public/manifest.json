@@ -1,0 +1,13 @@
+{
+    "name": "Legislate This - Understand Congress & Legislation",
+    "short_name": "Legislate This",
+    "description": "Making legislation accessible and understandable for everyone. Get clear bill summaries, track your representatives, and understand Congress without the political noise.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "lang": "en",
+    "categories": ["education", "news", "politics"]
+  } 

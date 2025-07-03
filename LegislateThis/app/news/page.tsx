@@ -1,245 +1,37 @@
 // app/news/page.tsx
-"use client"
+import { Metadata } from "next"
+import NewsClientPage from "./ClientPage"
 
-import { Navigation } from "@/components/navigation"
-import { NewsPageSkeleton } from "@/components/news-skeleton"
-import {
-  fetchNewsArticles,
-  formatRelativeTime,
-  type NewsArticle,
-} from "@/lib/news"
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import { getStatusColor } from "@/components/status-badge"
-
-// Generate a fixed default ticker text for SSR/initial render
-const DEFAULT_TICKER_TEXT = Array(40).fill("News").join(" • ") + " • ";
-
-// Helper for client-side ticker text
-function getClientTickerText() {
-  const width = window.innerWidth;
-  let repetitions = 40;
-  if (width <= 767) repetitions = 60;
-  else if (width <= 1000) repetitions = 50;
-  else if (width <= 1279) repetitions = 40;
-  else repetitions = 35;
-  const baseText = Array(repetitions).fill("News").join(" • ") + " • ";
-  return baseText + baseText;
+// SEO Metadata
+export const metadata: Metadata = {
+  title: "Legislative News & Bill Updates | Track Congress Bills",
+  description: "Stay informed with the latest legislative news, bill updates, and congressional activity. Get clear explanations of complex legislation and track how bills progress through Congress.",
+  keywords: [
+    "legislative news",
+    "bill updates", 
+    "congress bills",
+    "legislation tracking",
+    "congressional activity",
+    "bill progress",
+    "legislative updates",
+    "congress news"
+  ],
+  openGraph: {
+    title: "Legislative News & Bill Updates | Track Congress Bills",
+    description: "Stay informed with the latest legislative news, bill updates, and congressional activity. Get clear explanations of complex legislation and track how bills progress through Congress.",
+    url: "https://legislatethis.org/news",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Legislative News & Bill Updates | Track Congress Bills",
+    description: "Stay informed with the latest legislative news, bill updates, and congressional activity.",
+  },
+  alternates: {
+    canonical: "/news",
+  },
 }
 
-export default function News() {
-  // Always use the same initial value for SSR and SSG
-  const [tickerText, setTickerText] = useState(DEFAULT_TICKER_TEXT);
-  const [articles, setArticles] = useState<NewsArticle[]>([])
-  const [articlesLoading, setArticlesLoading] = useState(true)
-  const [featuredPage, setFeaturedPage] = useState(1)
-  const [recentPage, setRecentPage] = useState(1)
-  const router = useRouter()
-
-  const ITEMS_PER_PAGE = 3
-
-  useEffect(() => {
-    // Only run on client
-    const updateTickerText = () => setTickerText(getClientTickerText());
-    updateTickerText();
-    window.addEventListener("resize", updateTickerText);
-    return () => window.removeEventListener("resize", updateTickerText);
-  }, []);
-
-  // Load articles only
-  useEffect(() => {
-    async function loadNewsData() {
-      setArticlesLoading(true)
-      try {
-        setArticles(await fetchNewsArticles())
-      } catch (e) {
-        console.error("Error fetching articles:", e)
-      } finally {
-        setArticlesLoading(false)
-      }
-    }
-    loadNewsData()
-  }, [])
-
-  // Separate featured vs recent
-  const featuredArticles = articles
-    .filter((a) => a.featured)
-    .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
-  const recentArticles = articles.filter((a) => !a.featured)
-  const isLoading = articlesLoading
-
-  // Pagination logic
-  const featuredTotalPages = Math.ceil(featuredArticles.length / ITEMS_PER_PAGE)
-  const recentTotalPages = Math.ceil(recentArticles.length / ITEMS_PER_PAGE)
-  const paginatedFeatured = featuredArticles.slice(
-    (featuredPage - 1) * ITEMS_PER_PAGE,
-    featuredPage * ITEMS_PER_PAGE
-  )
-  const paginatedRecent = recentArticles.slice(
-    (recentPage - 1) * ITEMS_PER_PAGE,
-    recentPage * ITEMS_PER_PAGE
-  )
-
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Navigation />
-      <main className="flex-grow pt-20 lg-custom:pt-20">
-        {/* News Ticker */}
-        <div className="py-8 lg-custom:py-12 xl:py-16 px-4">
-          {tickerText && (
-            <div className="news-ticker-container">
-              <div className="news-ticker-text">{tickerText}</div>
-            </div>
-          )}
-        </div>
-
-        {/* Content with Loading State */}
-        <div className="border-t border-border min-h-[700px]">
-          {isLoading ? (
-            <NewsPageSkeleton />
-          ) : (
-            <>
-              {/* Grid: Featured + Recent */}
-              <div className="grid lg-custom:grid-cols-2 xl:grid-cols-3 gap-4 lg-custom:gap-6 p-4 lg-custom:p-6">
-                {/* Featured Stories */}
-                {paginatedFeatured.length > 0 && (
-                  <div className="xl:col-span-2 space-y-6">
-                    <h3 className="text-xl font-bold">Featured Stories</h3>
-                    {paginatedFeatured.map((article) => (
-                      <div
-                        key={article.id}
-                        className="border border-border p-6 hover:bg-muted transition-colors cursor-pointer"
-                        onClick={() => router.push(`/articles/${article.slug}`)}
-                      >
-                        <div className="flex items-center gap-2 mb-2 text-sm">
-                          <span className="uppercase tracking-wide font-medium">
-                            Featured
-                          </span>
-                          {article.status && (
-                            <span
-                              className={`px-2 py-1 text-xs font-medium rounded-none ${getStatusColor(
-                                article.status
-                              )}`}
-                            >
-                              {article.status}
-                            </span>
-                          )}
-                        </div>
-
-                        <h2 className="text-2xl font-bold mt-2 mb-4">
-                          {article.title}
-                        </h2>
-                        <p className="text-muted-foreground mb-4">
-                          {article.summary}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                          <span>{formatRelativeTime(article.publishedAt)}</span>
-                          <span>•</span>
-                          <span>{article.category}</span>
-                          {article.tags?.length > 0 && (
-                            <>
-                              <span>•</span>
-                              <span className="inline-flex flex-wrap gap-1">
-                                {article.tags.slice(0, 3).map((tag) => (
-                                  <span
-                                    key={tag}
-                                    className="px-2 py-1 text-xs border border-border hover:bg-accent transition-colors cursor-pointer bg-[var(--accent)] text-[var(--accent-foreground)]"
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                                {article.tags.length > 3 && (
-                                  <span className="px-2 py-1 text-xs text-muted-foreground">
-                                    +{article.tags.length - 3} more
-                                  </span>
-                                )}
-                              </span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-
-                    {/* Featured Pagination */}
-                    {featuredTotalPages > 1 && (
-                      <div className="flex space-x-2 mt-4">
-                        {Array.from({ length: featuredTotalPages }, (_, i) => i + 1).map(
-                          (num) => (
-                            <button
-                              key={num}
-                              className={`px-3 py-1 border rounded ${
-                                num === featuredPage ? "bg-muted" : ""
-                              }`}
-                              onClick={() => setFeaturedPage(num)}
-                            >
-                              {num}
-                            </button>
-                          )
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Recent Updates */}
-                <div className="space-y-6">
-                  <h3 className="text-lg font-bold">Recent Updates</h3>
-                  {paginatedRecent.map((article) => (
-                    <div
-                      key={article.id}
-                      className="border border-border p-4 hover:bg-muted transition-colors cursor-pointer"
-                      onClick={() => router.push(`/articles/${article.slug}`)}
-                    >
-                      {article.status && (
-                        <div className="flex items-center gap-2 mb-2 text-sm">
-                          <span
-                            className={`px-2 py-1 text-xs font-medium rounded-none ${getStatusColor(
-                              article.status
-                            )}`}
-                          >
-                            {article.status}
-                          </span>
-                        </div>
-                      )}
-                      <h4 className="font-semibold mb-2">{article.title}</h4>
-                      <p className="text-sm text-muted-foreground mb-2">
-                        {article.summary}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground">
-                          {formatRelativeTime(article.publishedAt)}
-                        </span>
-                        <span className="text-xs text-primary hover:underline">
-                          Read More →
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-
-                  {/* Recent Pagination */}
-                  {recentTotalPages > 1 && (
-                    <div className="flex space-x-2 mt-4">
-                      {Array.from({ length: recentTotalPages }, (_, i) => i + 1).map(
-                        (num) => (
-                          <button
-                            key={num}
-                            className={`px-3 py-1 border rounded ${
-                              num === recentPage ? "bg-muted" : ""
-                            }`}
-                            onClick={() => setRecentPage(num)}
-                          >
-                            {num}
-                          </button>
-                        )
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      </main>
-    </div>
-  )
+export default function NewsPage() {
+  return <NewsClientPage />
 }

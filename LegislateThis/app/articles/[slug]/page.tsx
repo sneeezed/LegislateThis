@@ -14,21 +14,83 @@ export async function generateMetadata(
     return {
       title: "Article not found – Legislate This",
       description: "The requested article could not be located.",
+      openGraph: {
+        title: "Article not found – Legislate This",
+        description: "The requested article could not be located.",
+        url: `https://legislatethis.org/articles/${params.slug}`,
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Article not found – Legislate This",
+        description: "The requested article could not be located.",
+      },
     };
   }
 
   const data = snap.data()!;
-  const description =
-    (data.summary as string) ??
-    (data.body as string).replace(/\s+/g, " ").slice(0, 150).trimEnd() + "…";
   const title = data.title as string;
+  const summary = data.summary as string;
+  const body = data.body as string;
+  const tags = (data.tags as string[]) || [];
+  const category = data.category as string;
+  const publishedAt = data.publishedAt?.toDate?.() || new Date();
+  
+  // Create optimized description
+  const description = summary || 
+    body.replace(/\s+/g, " ").slice(0, 150).trimEnd() + "…";
+  
+  // Create optimized title (under 60 characters)
+  const optimizedTitle = title.length > 50 ? 
+    `${title.slice(0, 47)}... – Legislate This` : 
+    `${title} – Legislate This`;
+  
   const url = `https://legislatethis.org/articles/${params.slug}`;
+  
+  // Create keywords from tags and category
+  const keywords = [
+    ...tags,
+    category,
+    "legislation",
+    "congress",
+    "bill analysis",
+    "legislative news",
+    "congressional update"
+  ].filter(Boolean);
 
   return {
-    title: `${title} – Legislate This`,
+    title: optimizedTitle,
     description,
-    openGraph: { type: "article", url, title, description },
-    twitter: { card: "summary_large_image", title, description },
+    keywords,
+    authors: [{ name: "Legislate This Team" }],
+    openGraph: {
+      type: "article",
+      url,
+      title: optimizedTitle,
+      description,
+      siteName: "Legislate This",
+      locale: "en_US",
+      publishedTime: publishedAt.toISOString(),
+      modifiedTime: publishedAt.toISOString(),
+      section: category,
+      tags: tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: optimizedTitle,
+      description,
+      site: "@legislatethis",
+      creator: "@legislatethis",
+    },
+    alternates: {
+      canonical: url,
+    },
+    other: {
+      "article:published_time": publishedAt.toISOString(),
+      "article:modified_time": publishedAt.toISOString(),
+      "article:section": category,
+      "article:tag": tags.join(", "),
+    },
   };
 }
 
