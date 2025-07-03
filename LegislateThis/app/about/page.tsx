@@ -3,9 +3,10 @@ import { Metadata } from "next"
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: "About Legislate This | Making Legislation Accessible",
-  description: "Learn about our mission to make Congress make sense. We're a team of young people breaking down complex legislation and profiling every member of Congress in plain language.",
+  title: "About Matias Sevak & Legislate This | Making Legislation Accessible",
+  description: "Learn about Matias Sevak and our mission to make Congress make sense. We're a team of young people breaking down complex legislation and profiling every member of Congress in plain language.",
   keywords: [
+    "matias sevak",
     "about legislate this",
     "legislation accessibility",
     "congress explained",
@@ -15,15 +16,15 @@ export const metadata: Metadata = {
     "legislative transparency"
   ],
   openGraph: {
-    title: "About Legislate This | Making Legislation Accessible",
-    description: "Learn about our mission to make Congress make sense. We're a team of young people breaking down complex legislation and profiling every member of Congress in plain language.",
+    title: "About Matias Sevak & Legislate This | Making Legislation Accessible",
+    description: "Learn about Matias Sevak and our mission to make Congress make sense. We're a team of young people breaking down complex legislation and profiling every member of Congress in plain language.",
     url: "https://legislatethis.org/about",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "About Legislate This | Making Legislation Accessible",
-    description: "Learn about our mission to make Congress make sense. We're a team of young people breaking down complex legislation and profiling every member of Congress in plain language.",
+    title: "About Matias Sevak & Legislate This | Making Legislation Accessible",
+    description: "Learn about Matias Sevak and our mission to make Congress make sense. We're a team of young people breaking down complex legislation and profiling every member of Congress in plain language.",
   },
   alternates: {
     canonical: "/about",
@@ -80,6 +81,27 @@ export default function About() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
+      {/* Person Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Matias Sevak",
+            "url": "https://legislatethis.org/about",
+            "image": "https://legislatethis.org/Matias1.jpg",
+            "jobTitle": "Co-Founder & CEO, Lead Developer & Designer, Marketing & Outreach",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "Legislate This"
+            },
+            "sameAs": [
+              "https://legislatethis.org/about"
+            ]
+          })
+        }}
+      />
 
       {/* Main Content */}
       <main className="flex-grow pt-20">
@@ -131,7 +153,7 @@ We're not just another news app.
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Our Story</h2>
                   <p className="text-muted-foreground mb-4">
-                 My name is Matias, im 16 and I started Legislate This with three of my friends because we were tired of how hard it is to understand what's happening in Congress. Every time we looked up a new bill or tried to figure out what our representatives were doing, we'd find confusing articles, outdated sites, or walls of legal jargon. So we decided to build something better.
+                  My name is <strong>Matias Sevak</strong>, I'm 16 and I started  <strong>Legislate This </strong> with three of my friends because we were tired of how hard it is to understand what's happening in Congress. Every time we looked up a new bill or tried to figure out what our representatives were doing, we'd find confusing articles, outdated sites, or walls of legal jargon. So we decided to build something better.
 
                   </p>
                   <p className="text-muted-foreground">
@@ -189,13 +211,13 @@ We didn't want to just copy existing news apps. We wanted something actually use
                       {/* Default Image */}
                       <img
                         src={member.defaultImage || "/placeholder.svg"}
-                        alt={`${member.name} - ${member.role}`}
+                        alt={member.name === "Matias Sevak" ? `Matias Sevak - ${member.role} at Legislate This` : `${member.name} - ${member.role}`}
                         className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
                       />
                       {/* Hover Image */}
                       <img
                         src={member.hoverImage || "/placeholder.svg"}
-                        alt={`${member.name} - casual photo`}
+                        alt={member.name === "Matias Sevak" ? `Matias Sevak - baby photo` : `${member.name} - casual photo`}
                         className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                       />
                     </div>
